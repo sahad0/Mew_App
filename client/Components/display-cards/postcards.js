@@ -11,7 +11,7 @@ import axios from "axios";
 //react-render-html , moment
 
 
-function PostCards({cards}) {
+function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible,setdeletedid}) {
 
     const[cookiestate,setcookiestate] = useContext(UserContext)['cookies'];
 
@@ -35,63 +35,6 @@ function PostCards({cards}) {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-
-
-
-
-    const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);//delete okay or not modal
-    const [deletedid,setdeletedid] = useState("");
-    const [okdelete,setokaydelete] = useState(false);
-    
-    useEffect(()=>{
-        if(deletedid.length>0){
-            setIsDeleteModalVisible(true);
-        }
-    },[deletedid]);
-
-    useEffect(()=>{
-        if(okdelete === true){
-            deletethepost();
-            
-            setokaydelete(false);
-        }
-        
-    },[okdelete])
-
-    
-
-     function deletehandleOk(){
-         
-         setIsDeleteModalVisible(false);
-         setokaydelete(true);
-     };
-
-     function deletehandleCancel(){
-         setdeletedid("");
-         setIsDeleteModalVisible(false);
-     };
-
- 
-
-      async function deletethepost(){
-          try {
-          
-              const deleted = await axios.delete(`/deletethepost/${deletedid}`);
-              
-              setdeletedid("");
-              router.push("/newsfeed");
-           
-          } 
-          catch (err) {
-              console.log(err);
-          }
-      }
-
-
-    
-
-    
-
 
 
 
