@@ -26,7 +26,7 @@ function Home(){
         window.localStorage.removeItem('auth');
         window.localStorage.removeItem('token');
     } 
-
+    window.localStorage.removeItem("update"); //for update removal
 
 
     return(

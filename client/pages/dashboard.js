@@ -1,6 +1,7 @@
 import Autherntication from "../Components/Authenication/authfile";
 
 function Dashboard() {
+    window.localStorage.removeItem("update"); //for update removal
     return (
         (
         <Autherntication>

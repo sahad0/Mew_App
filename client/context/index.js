@@ -19,25 +19,25 @@ function UserProvider({children}){
 
     
 
-    axios.interceptors.response.use(
-        function (response) {
+    // axios.interceptors.response.use(
+    //     function (response) {
         
-        return response;
-      }, async function (error) {
+    //     return response;
+    //   }, async function (error) {
         
-        let res = error.response;                                                                     //axios.interceptors(seek git help)
-        if(res.status === 401 && res.config && !res.config.__isRetryRequest){
+    //     let res = error.response;                                                                     //axios.interceptors(seek git help)
+    //     if(res.status === 401 && res.config && !res.config.__isRetryRequest){
             
-            window.localStorage.removeItem('auth');
-            window.localStorage.removeItem('token');
+    //         window.localStorage.removeItem('auth');
+    //         window.localStorage.removeItem('token');
 
-            setstate(null);
+    //         setstate(null);
 
-            await axios.get(`/logout`);
-        }
+    //         await axios.get(`/logout`);
+    //     }
 
         
-      });
+    //   });
     
     return (
             

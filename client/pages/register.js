@@ -44,13 +44,13 @@ function Register(){
             setloading(true);
              await axios.post(`/register`,registerData);
 
-             const biscuit = await axios.get(`${process.env.NEXT_PUBLIC_MEWAPP}/loggedIn`);
-             if(biscuit){
-                 setstate(JSON.stringify(biscuit.data.user));  
-                 window.localStorage.setItem('auth',JSON.stringify(biscuit.data.user));
-                 setcookiestate(biscuit.data._id);
-                 window.localStorage.setItem('token',JSON.stringify(biscuit.data._id));
-             }
+            const biscuit = await axios.get(`${process.env.NEXT_PUBLIC_MEWAPP}/loggedIn`);
+            if(biscuit){
+                setstate(JSON.stringify(biscuit.data.user));  
+                window.localStorage.setItem('auth',JSON.stringify(biscuit.data.user));
+                setcookiestate(biscuit.data._id);
+                window.localStorage.setItem('token',JSON.stringify(biscuit.data._id));
+            }
  
             
              
@@ -63,7 +63,7 @@ function Register(){
             setRpass("");
             setSecret("");
             setloading(false);
-            router.push("/");
+            router.push("/newsfeed");
             
         }
         catch(err){

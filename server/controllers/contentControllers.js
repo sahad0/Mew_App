@@ -49,5 +49,34 @@ const userPost = async(req,res)=>{
 }
 
 
+const updatePost = async(req,res)=>{
+    try{
+        const editPost = await PostSchema.findById(req.params._id);
+        res.status(200).json(editPost);
+    }
+    catch(err){
+        return res.status(500).send();
+    }
+}
 
-module.exports={contents ,imageUpload , userPost};
+const saveEdit = async(req,res)=>{
+    try{
+        const {content,image} = req.body;
+        const data ={
+            contents : content,
+            image : {
+                url:image.url,
+                public_id:image.public_id,
+            },
+        }
+        const saveEdit = await PostSchema.findByIdAndUpdate(req.params._id,data,{new:true});
+        res.status(200).send();
+    }
+    catch{
+        return res.status(500).json({err_msg:"File size too Large!"});
+    }
+}
+
+
+
+module.exports={contents ,imageUpload , userPost ,updatePost ,saveEdit};
