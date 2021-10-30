@@ -1,4 +1,5 @@
 function DevSupport(){
+    window.localStorage.removeItem("update"); //for update removal
     return(
         <div className = "container">
 

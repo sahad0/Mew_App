@@ -25,6 +25,7 @@ function Navbar(){
             await axios.get(`/logout`);
             window.localStorage.removeItem('auth');
             window.localStorage.removeItem('token');
+            window.localStorage.removeItem("update"); //for update removal
             setstate(null);
             setcookiestate(null);
             toast.info("LogOut Successful");

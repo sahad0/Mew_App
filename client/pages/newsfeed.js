@@ -87,8 +87,11 @@ function Newsfeed() {
             return toast.error("Internal Server Error");
         }
     }
-
-
+    if(window.localStorage.getItem("update")){
+        window.localStorage.removeItem("update"); //for update removal
+    }
+    
+    
     return(
         <Autherntication>
             <div className="container">
