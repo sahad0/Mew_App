@@ -146,8 +146,11 @@ function Newsfeed() {
              const deleted = await axios.delete(`/deletethepost/${deletedid}`);
              setdeletedid("");
              if(deleted){
-                userPost();
-             }
+                setTimeout(()=>{
+                    userPost();
+                },2000)
+                
+            }
              toast.warning("Post Deleted");
              
           
