@@ -13,6 +13,9 @@ function Navbar(){
     const router = useRouter();
 
     useEffect(()=>{
+        state && window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal
+    },[]);
+    useEffect(()=>{
         process.browser && setCurrent(window.location.pathname);
     },[process.browser && window.location.pathname]);
     
@@ -25,7 +28,7 @@ function Navbar(){
             await axios.get(`/logout`);
             window.localStorage.removeItem('auth');
             window.localStorage.removeItem('token');
-            window.localStorage.removeItem("update"); //for update removal
+            
             setstate(null);
             setcookiestate(null);
             toast.info("LogOut Successful");

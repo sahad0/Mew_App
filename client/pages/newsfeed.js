@@ -32,6 +32,10 @@ function Newsfeed() {
        userPost();
      },[state && state.token]);
 
+     useEffect(()=>{
+        window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal
+    },[]);
+
 
     async function contentextract(e){
         e.preventDefault();
@@ -84,12 +88,10 @@ function Newsfeed() {
             
         }
         catch(err){
-            return toast.error("Internal Server Error");
+            console.log(err);
         }
     }
-    if(window.localStorage.getItem("update")){
-        window.localStorage.removeItem("update"); //for update removal
-    }
+    
     
     
     return(
