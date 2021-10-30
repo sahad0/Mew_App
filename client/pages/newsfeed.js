@@ -9,7 +9,7 @@ import { UserContext } from "../context";
 
 function Newsfeed() {
 
-    
+    //fetch states and set card
     const[state,setstate] = useContext(UserContext)['state1'];
     const [content,setcontent] = useState("");          //contents
     const [image,setImage] = useState({
@@ -22,21 +22,50 @@ function Newsfeed() {
 
 
 
+    //delete states
+    const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);//delete okay or not modal
+    const [deletedid,setdeletedid] = useState("");
+    const [okdelete,setokaydelete] = useState(false);
+
+
+
     useEffect(()=>{
-        if(content === "<p><br></p>"){              //disable button
+        if(content === "<p><br></p>"){              //disable button on rich editor empty content
             setcontent("")
         }
     },[content]);
+    
 
      useEffect(()=>{
-       userPost();
+       userPost();                  //fetch on mount
      },[state && state.token]);
 
      useEffect(()=>{
-        window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal
+        window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal 
     },[]);
 
 
+
+    //delete useeffects
+    useEffect(()=>{
+        if(deletedid.length>0){
+            setIsDeleteModalVisible(true);
+        }
+    },[deletedid]);
+
+    useEffect(()=>{
+        if(okdelete === true){
+            deletethepost();
+            
+            setokaydelete(false);
+        }
+        
+    },[okdelete]);
+
+
+
+
+//fetch post  and create post functions
     async function contentextract(e){
         e.preventDefault();
         try{
@@ -48,19 +77,25 @@ function Newsfeed() {
             if(!createpost){
                return toast.error("Contents are required");
             }
+            if(createpost){
+                setTimeout(()=>{
+                    userPost();
+                },2000)
+                
+            }
             setcontent("");
             setImage({
                 url : "",
                 public_id : "",
             });
+            
             toast.success("Post Created!");
-            userPost();
+            
         }
         catch(err){
             return toast.error("Internal Server Error");
         }
     }
-
     async function handleImage(e){
         const files = e.target.files[0];
         let formData = new FormData();
@@ -83,7 +118,7 @@ function Newsfeed() {
 
     async function userPost(){
         try{
-            const hello = await axios.get("/userpost");
+            const hello = await axios.get("/userpost");     //refetch posts especialy for after delete and update !important
             setCards(hello.data);
             
         }
@@ -91,6 +126,39 @@ function Newsfeed() {
             console.log(err);
         }
     }
+
+
+
+    //delete functions
+    function deletehandleOk(){
+         
+        setIsDeleteModalVisible(false);
+        setokaydelete(true);
+    };
+
+    function deletehandleCancel(){
+        setdeletedid("");
+        setIsDeleteModalVisible(false);
+    };
+     async function deletethepost(){
+         try {
+         
+             const deleted = await axios.delete(`/deletethepost/${deletedid}`);
+             setdeletedid("");
+             if(deleted){
+                userPost();
+             }
+             toast.warning("Post Deleted");
+             
+          
+         } 
+         catch (err) {
+             console.log(err);
+         }
+     }
+
+
+
     
     
     
@@ -104,7 +172,7 @@ function Newsfeed() {
                 </div>
                 <div className="row py-3 ">
                     <div className="col-md-6">
-                        <PostCards cards={cards}/>
+                        <PostCards cards={cards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid}/>
                     </div>
                 </div>
             </div>

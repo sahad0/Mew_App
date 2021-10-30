@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { toast } from "react-toastify";
 import UpdatePost from "../../Components/Forms/Updatepost";
+import Autherntication from "../../Components/Authenication/authfile";
 
 
 function EditPost() {
@@ -109,11 +110,11 @@ function EditPost() {
 
     return (
     <>
-        <div className="editPost">
-            <UpdatePost setcontent={setcontent} savechanges={savechanges} image={image} loading={loading} handleImage={handleImage} content={content}/>
-           
-            
-        </div>
+        <Autherntication>
+            <div className="editPost">
+                <UpdatePost setcontent={setcontent} savechanges={savechanges} image={image} loading={loading} handleImage={handleImage} content={content}/>
+            </div>
+        </Autherntication>
     </>
     )
 };

@@ -2,33 +2,39 @@
 import moment  from "moment";
 import {Avatar} from "antd";
 import Cardstyle from "./cardwithstyle";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
 import {EditFilled,DeleteOutlined} from "@ant-design/icons"
 import {useRouter} from "next/router";
+import DeleteModal from "../Modals/DeleteModal";
+import axios from "axios";
 //react-render-html , moment
-function PostCards({cards}) {
+
+
+function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible,setdeletedid}) {
 
     const[cookiestate,setcookiestate] = useContext(UserContext)['cookies'];
 
     const router = useRouter();
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+
+
+    const [isModalVisible, setIsModalVisible] = useState(false); //postpreview _ modal
     const [displayurl,setdisplayurl] = useState('');
     const [displaycontents,setdisplaycontents] = useState('');
+
+    
+  
+     
+
 
     const showModal = () => {
         setIsModalVisible(true);
     };
 
-   
-
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-
-    
-
 
 
 
@@ -46,13 +52,14 @@ function PostCards({cards}) {
                         <div className="col-sm-2">
                             
                                 <span className="m-2">{cookiestate===card.postedBy._id && (<EditFilled onClick={()=>{router.push(`update/${card._id}`);}} className="mt-2 " style={{fontSize:"20px"}} />) } </span> 
-                                <span className="m-2">{cookiestate===card.postedBy._id && (<DeleteOutlined className="mt-2 " style={{fontSize:"21px"}} />)}</span>
+                                <span className="m-2">{cookiestate===card.postedBy._id && (<DeleteOutlined onClick={()=>{  setdeletedid(card._id)  }  } className="mt-2 " style={{fontSize:"21px"}} />)}</span>
                             
                         </div>
                     </div>
                 </div>
                 {card.image && (<Cardstyle card={card}   handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} displaycontents={displaycontents} setdisplaycontents={setdisplaycontents}/>        
                 )}
+                {<DeleteModal deletehandleOk={deletehandleOk} deletehandleCancel={ deletehandleCancel  } isDeleteModalVisible={isDeleteModalVisible} />}
             </div>
             
             )
