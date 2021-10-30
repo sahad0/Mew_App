@@ -10,6 +10,7 @@ function Home(){
 
 
     useEffect(()=>{
+        window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal
         setcookieinfo(true);
         !cookiestate && cleartokens();
         cookiefn();
@@ -26,8 +27,7 @@ function Home(){
         window.localStorage.removeItem('auth');
         window.localStorage.removeItem('token');
     } 
-    window.localStorage.removeItem("update"); //for update removal
-
+    
 
     return(
         <div className = "container-fluid" >

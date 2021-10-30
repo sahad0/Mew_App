@@ -1,5 +1,9 @@
+import { useEffect } from "react";
+
 function DevSupport(){
-    window.localStorage.removeItem("update"); //for update removal
+    useEffect(()=>{
+        window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal
+    },[]);
     return(
         <div className = "container">
 

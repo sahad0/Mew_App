@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import Autherntication from "../Components/Authenication/authfile";
 
 function Dashboard() {
-    window.localStorage.removeItem("update"); //for update removal
+
+    useEffect(()=>{
+        window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal
+    },[]);
+
     return (
         (
         <Autherntication>

@@ -35,7 +35,7 @@ function Login(){
             }
 
             toast.success("Welcome to Mew!");
-            router.push("/");
+            router.push("/newsfeed");
         }
         catch(err){
             
