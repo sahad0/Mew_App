@@ -84,7 +84,7 @@ const deletePost = async(req,res)=>{
         if(deleted.image && deleted.image.public_id){
             const deleteimgurl = await cloudinary.uploader.destroy(deleted.image.public_id);
         }
-        res.json({err_msg:"Deleted"});
+        res.status(200).send();
         
     } 
     catch (err) {
