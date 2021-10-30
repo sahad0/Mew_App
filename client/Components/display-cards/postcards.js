@@ -4,10 +4,10 @@ import {Avatar} from "antd";
 import Cardstyle from "./cardwithstyle";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
-import {EditFilled,DeleteOutlined} from "@ant-design/icons"
+import { DeleteTwoTone, EditTwoTone} from "@ant-design/icons"
 import {useRouter} from "next/router";
 import DeleteModal from "../Modals/DeleteModal";
-import axios from "axios";
+
 //react-render-html , moment
 
 
@@ -51,8 +51,8 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
                         </div>
                         <div className="col-sm-2">
                             
-                                <span className="m-2">{cookiestate===card.postedBy._id && (<EditFilled onClick={()=>{router.push(`update/${card._id}`);}} className="mt-2 " style={{fontSize:"20px"}} />) } </span> 
-                                <span className="m-2">{cookiestate===card.postedBy._id && (<DeleteOutlined onClick={()=>{  setdeletedid(card._id)  }  } className="mt-2 " style={{fontSize:"21px"}} />)}</span>
+                                <span className="m-2">{cookiestate===card.postedBy._id && (<EditTwoTone twoToneColor="#A9A9A9" onClick={()=>{router.push(`update/${card._id}`);}} className="mt-2 " style={{fontSize:"20px"}} />) } </span> 
+                                <span className="m-2">{cookiestate===card.postedBy._id && (<DeleteTwoTone twoToneColor="000000" onClick={()=>{  setdeletedid(card._id)  }  } className="mt-2 " style={{fontSize:"21px"}} />)}</span>
                             
                         </div>
                     </div>
