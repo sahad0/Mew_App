@@ -2,30 +2,93 @@
 import moment  from "moment";
 import {Avatar} from "antd";
 import Cardstyle from "./cardwithstyle";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context";
 import {EditFilled,DeleteOutlined} from "@ant-design/icons"
 import {useRouter} from "next/router";
+import DeleteModal from "../Modals/DeleteModal";
+import axios from "axios";
 //react-render-html , moment
+
+
 function PostCards({cards}) {
 
     const[cookiestate,setcookiestate] = useContext(UserContext)['cookies'];
 
     const router = useRouter();
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+
+
+    const [isModalVisible, setIsModalVisible] = useState(false); //postpreview _ modal
     const [displayurl,setdisplayurl] = useState('');
     const [displaycontents,setdisplaycontents] = useState('');
+
+    
+  
+     
+
 
     const showModal = () => {
         setIsModalVisible(true);
     };
 
-   
-
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+
+
+
+
+    const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);//delete okay or not modal
+    const [deletedid,setdeletedid] = useState("");
+    const [okdelete,setokaydelete] = useState(false);
+    
+    useEffect(()=>{
+        if(deletedid.length>0){
+            setIsDeleteModalVisible(true);
+        }
+    },[deletedid]);
+
+    useEffect(()=>{
+        if(okdelete === true){
+            deletethepost();
+            
+            setokaydelete(false);
+        }
+        
+    },[okdelete])
+
+    
+
+     function deletehandleOk(){
+         
+         setIsDeleteModalVisible(false);
+         setokaydelete(true);
+     };
+
+     function deletehandleCancel(){
+         setdeletedid("");
+         setIsDeleteModalVisible(false);
+     };
+
+ 
+
+      async function deletethepost(){
+          try {
+          
+              const deleted = await axios.delete(`/deletethepost/${deletedid}`);
+              
+              setdeletedid("");
+              router.push("/newsfeed");
+           
+          } 
+          catch (err) {
+              console.log(err);
+          }
+      }
+
+
+    
 
     
 
@@ -46,13 +109,14 @@ function PostCards({cards}) {
                         <div className="col-sm-2">
                             
                                 <span className="m-2">{cookiestate===card.postedBy._id && (<EditFilled onClick={()=>{router.push(`update/${card._id}`);}} className="mt-2 " style={{fontSize:"20px"}} />) } </span> 
-                                <span className="m-2">{cookiestate===card.postedBy._id && (<DeleteOutlined className="mt-2 " style={{fontSize:"21px"}} />)}</span>
+                                <span className="m-2">{cookiestate===card.postedBy._id && (<DeleteOutlined onClick={()=>{  setdeletedid(card._id)  }  } className="mt-2 " style={{fontSize:"21px"}} />)}</span>
                             
                         </div>
                     </div>
                 </div>
                 {card.image && (<Cardstyle card={card}   handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} displaycontents={displaycontents} setdisplaycontents={setdisplaycontents}/>        
                 )}
+                {<DeleteModal deletehandleOk={deletehandleOk} deletehandleCancel={ deletehandleCancel  } isDeleteModalVisible={isDeleteModalVisible} />}
             </div>
             
             )

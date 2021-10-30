@@ -91,6 +91,9 @@ function Newsfeed() {
             console.log(err);
         }
     }
+
+
+    
     
     
     
@@ -104,7 +107,7 @@ function Newsfeed() {
                 </div>
                 <div className="row py-3 ">
                     <div className="col-md-6">
-                        <PostCards cards={cards}/>
+                        <PostCards cards={cards} userPost={userPost}/>
                     </div>
                 </div>
             </div>

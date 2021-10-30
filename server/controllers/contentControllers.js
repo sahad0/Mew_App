@@ -78,5 +78,20 @@ const saveEdit = async(req,res)=>{
 }
 
 
+const deletePost = async(req,res)=>{
+    try {
+        const deleted = await PostSchema.findByIdAndDelete(req.params._id);
+        if(deleted.image && deleted.image.public_id){
+            const deleteimgurl = await cloudinary.uploader.destroy(deleted.image.public_id);
+        }
+        res.json({err_msg:"Deleted"});
+        
+    } 
+    catch (err) {
+        return res.status(500).json({err_msg:"Internal Server Error"});
+    }
+}
 
-module.exports={contents ,imageUpload , userPost ,updatePost ,saveEdit};
+
+
+module.exports={contents ,imageUpload , userPost ,updatePost ,saveEdit,deletePost};
