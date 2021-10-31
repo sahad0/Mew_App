@@ -59,6 +59,9 @@ function Navbar(){
                     {state &&  (
                         <>
                         <li className="nav-item">
+                            <Link href="/profile"><a className="nav-link" >Profile</a></Link>
+                        </li>
+                        <li className="nav-item">
                             <Link href="/newsfeed"><a className="nav-link" >NewsFeed</a></Link>
                         </li>
                         <li className="nav-item">

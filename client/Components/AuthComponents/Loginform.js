@@ -1,6 +1,6 @@
-import React from "react";
+import {Input} from "antd";
 
-function Loginform({loginfunction,setLoginemail,setLoginpass,loginemail,loginpass,TextField,Button}) {
+function Loginform({loginfunction,setLoginemail,setLoginpass,loginemail,loginpass,Button}) {
     return (
         <>
         <div className = "container">
@@ -14,8 +14,8 @@ function Loginform({loginfunction,setLoginemail,setLoginpass,loginemail,loginpas
             <div className="row">   {/*Input fields*/}
                 <div className="col-md-6 ">
                     <form onSubmit={loginfunction}>
-                        <TextField  label="Email" variant="filled" type="text" className="mt-2 col-sm-12"      onChange={(e)=>{setLoginemail("sahadwg@gmail.com")}}    value={loginemail}/>
-                        <TextField  label="Password" variant="filled" type="text" className="mt-2 col-sm-12"  type="password"    onChange={(e)=>{setLoginpass("2001Sahad!")}}   value={loginpass}/>
+                        <Input size="large" placeholder="Email" type="text" className="mt-2 col-sm-12"      onChange={(e)=>{setLoginemail("sahadwg@gmail.com")}}    value={loginemail}/>
+                        <Input size="large" placeholder="Password" type="text" className="mt-2 col-sm-12"  type="password"    onChange={(e)=>{setLoginpass("2001Sahad!")}}   value={loginpass}/>
                 
                         <br/><Button variant="contained" color="primary" type="submit"  className="mt-4"> Login </Button>
                     </form>
