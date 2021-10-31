@@ -2,6 +2,7 @@ const { hashPass, verifyPass } = require("../helpers/authHelpers");
 const LoginSchema = require("../models/loginModel");
 
 const jwt = require("jsonwebtoken");
+const {nanoid} = require("nanoid");
 
 const register = async (req, res) => {
    
@@ -55,11 +56,16 @@ const register = async (req, res) => {
       return res.status(500).json({ err: "Internal Server Error" }).send();
     }
 
+    const userid = nanoid(7);
+    const verified = false;
+
     const finalRegisterDetails = new LoginSchema({
       name,
       email,
       pass: hashedpass,
       secret,
+      userid,
+      verified,
     });
 
     const registered = await finalRegisterDetails.save();
