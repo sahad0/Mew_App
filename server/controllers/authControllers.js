@@ -3,6 +3,7 @@ const LoginSchema = require("../models/loginModel");
 
 const jwt = require("jsonwebtoken");
 const {nanoid} = require("nanoid");
+const { findByIdAndUpdate } = require("../models/loginModel");
 
 const register = async (req, res) => {
    
@@ -164,4 +165,59 @@ const logout = async (req, res) => {                                            
   }
 };
 
-module.exports = { register, login, logout, loggedIn ,authorised};
+
+
+const saveProfile = async (req,res)=>{
+  try {
+    const {userid,name,about} = req.body;
+    const find = await LoginSchema.findById({_id:req._id});
+      if(!name){
+        return res.status(400).json({err_msg:"Name is Required!"});
+      }
+      if(userid == find.userid){
+        const userdata = {
+          name:name,
+          about:about,
+        }
+        const userUpdate = await LoginSchema.findByIdAndUpdate(req._id,userdata,{new:true});
+        userUpdate.secret = undefined;
+        userUpdate.pass = undefined;
+
+        return res.json({user:userUpdate});
+      }
+
+      if(userid != find.userid){
+        if(!userid){
+          return res.status(400).json({err_msg:"Username is Required!"});
+        }
+        if(!name){
+          return res.status(400).json({err_msg:"Name is Required!"});
+        }
+        const findanid = await LoginSchema.findOne({userid:userid});
+        
+        
+        if(findanid){
+          return res.status(400).json({err_msg:"UserName Aldready Picked!"});
+        }
+        const userdata = {
+          name:name,
+          userid:userid,
+          about:about,
+        }
+        const userUpdate = await LoginSchema.findByIdAndUpdate(req._id,userdata,{new:true});
+        userUpdate.secret = undefined;
+        userUpdate.pass = undefined;
+
+        return res.json({user:userUpdate});
+      }
+    
+    
+    
+  } catch (err) {
+    res.status(500).json({
+      err_msg: "Internal Server Error",
+    });
+  }
+}
+
+module.exports = { register, login, logout, loggedIn ,authorised,saveProfile};

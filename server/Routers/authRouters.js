@@ -1,4 +1,4 @@
-const {register,login,logout,loggedIn,authorised,} = require("../controllers/authControllers");
+const {register,login,logout,loggedIn,authorised, saveProfile,} = require("../controllers/authControllers");
 const { contents, imageUpload, userPost, updatePost, saveEdit, deletePost } = require("../controllers/contentControllers");
 const auth = require("../middleware/authentication");
 const formidable = require("express-formidable");
@@ -12,6 +12,7 @@ router.post("/login", login);
 router.get("/logout", logout);
 router.get("/loggedIn", auth, loggedIn);
 router.get("/authorised", auth, authorised);
+router.put("/profileupdate",auth,saveProfile);
 
 
 
