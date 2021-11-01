@@ -63,7 +63,7 @@ function Register(){
             setRpass("");
             setSecret("");
             setloading(false);
-            router.push("/newsfeed");
+            router.push("/");
             
         }
         catch(err){
