@@ -12,7 +12,7 @@ function CreatePost({content,setcontent,contentextract,handleImage,loading,image
     <>
         <div className="card ">
             <div className="card-body pb-1">
-                <div className="form-groop">
+                <div className="form-groop" style={{height:"150px",}}>
                     <ReactQuill theme="bubble"  onChange={(e)=>{setcontent(e)}} value={content} /> 
                 </div>
             </div>

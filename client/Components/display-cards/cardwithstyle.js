@@ -27,7 +27,7 @@ function Cardstyle({card,handleCancel,isModalVisible,setdisplayurl,displayurl,sh
                         {backgroundImage:"url(" + card.image.url + ")",
                         backgroundSize:"cover",
                         backgroundRepeat:"no-repeat",
-                        height:"300px",
+                        height:"400px",
                         backgroundPosition:"center center"}}>
                     </div>
 
