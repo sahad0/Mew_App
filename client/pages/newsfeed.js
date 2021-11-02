@@ -5,6 +5,7 @@ import Autherntication from "../Components/Authenication/authfile";
 import PostCards from "../Components/display-cards/postcards";
 import CreatePost from "../Components/Forms/Createpostform";
 import { UserContext } from "../context";
+import Suggestions from "../Components/Suggestions/suggestion";
 
 
 function Newsfeed() {
@@ -21,11 +22,16 @@ function Newsfeed() {
     const [cards,setCards] = useState([]);
 
 
-
     //delete states
     const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);//delete okay or not modal
     const [deletedid,setdeletedid] = useState("");
     const [okdelete,setokaydelete] = useState(false);
+
+    //Suggestion State
+    const[people,setpeople] = useState([]);
+
+
+    
 
 
 
@@ -38,6 +44,7 @@ function Newsfeed() {
 
      useEffect(()=>{
        userPost();                  //fetch on mount
+       findSuggestions();           //friend Suggestion
      },[state && state.token]);
 
      useEffect(()=>{
@@ -63,7 +70,7 @@ function Newsfeed() {
     },[okdelete]);
 
 
-
+//Part One Functions
 
 //fetch post  and create post functions
     async function contentextract(e){
@@ -162,21 +169,43 @@ function Newsfeed() {
 
 
 
+
+//Part Two functions 
+    async function findSuggestions(){
+        try{
+            const {data} = await axios.get("/suggest");
+            setpeople(data);
+        }
+        catch(err){
+            toast.error(err.response.data.err_msg);
+        }
+        
+    }
+
     
     
     
     return(
         <Autherntication>
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row py-3 ">
                     <div className="col-md-7"><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image}/>
                     </div>
-                    <div className="col-md-4">Sidebar</div>
+                    
                 </div>
                 <div className="row py-3 ">
                     <div className="col-md-6">
                         <PostCards cards={cards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid}/>
                     </div>
+                    <div className="col-md-3">
+                        </div>
+
+                    <div className="col-md-3" >
+                        <h5 style={{fontStyle:"italic"}} align="center">Friends You may Know!</h5>
+                        <Suggestions  people={people}/>
+        
+                    </div>
+
                 </div>
             </div>
             

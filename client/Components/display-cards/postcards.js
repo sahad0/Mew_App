@@ -43,7 +43,7 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
             return (
             <div key={card._id} className="card mb-5">
                 <div className="card-header"> 
-                    <div className="row">
+                    <div className="row" style={{display:"flex",justifyContent:"space-between",}}>
                         <div className="col-sm-10">
                             <span>{(<Avatar size={40}>{card.postedBy.name[0]}</Avatar>)} </span>   
                             <span className="m-2">{card.postedBy.name}</span>   

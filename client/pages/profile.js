@@ -5,7 +5,7 @@ import { UserContext } from "../context";
 import {toast} from "react-toastify";
 import {useRouter} from "next/router";
 import ProfilePage from "../Components/AuthComponents/Profile";
-
+import Autherntication from "../Components/Authenication/authfile";
 
 
 function Profile() {
@@ -62,9 +62,9 @@ function Profile() {
 
 
     return (
-    <>
+    <Autherntication>
         <ProfilePage setID={setID} id={id} name={name} setName={setName} email={email} setAbout={setAbout} about={about} saveProfile={saveProfile} />
-    </>
+    </Autherntication>
     )
 };
 
