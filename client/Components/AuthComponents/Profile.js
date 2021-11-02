@@ -17,7 +17,7 @@ function ProfilePage({setID,id,name,setName,email,setAbout,about,saveProfile}) {
                         <Input size="large" className=" my-1" style={{fontStyle:"italic",}} placeholder="Name" onChange={(e)=>{setName(e.target.value)}} value={name}/>
                         <Input size="large" className=" my-1" style={{fontStyle:"italic",}} placeholder="Email" disabled value={email}/>
                         
-                        <TextArea rows={4} className=" my-1" placeholder="About Me" style={{resize:"none",}} onChange={(e)=>{setAbout(e.target.value)}} value={about}/>
+                        <TextArea rows={8} className=" my-1" placeholder="About Me" style={{resize:"none",}} onChange={(e)=>{setAbout(e.target.value)}} value={about}/>
                         <span>
                             <Button type="primary"  style={{backgroundColor:"#5CB85C",border:"#5CB85C",fontStyle:"italic"}} className="my-3" onClick={saveProfile}> Save</Button>
                             <Button type="primary"  className="my-3 mx-2" style={{backgroundColor:"#A020F0",border:"#A020F0",fontStyle:"italic",}} >Update Password</Button>
