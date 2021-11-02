@@ -3,7 +3,9 @@ import axios from "axios";
 
 
 
+
 function Suggestions({people}) {
+    
 
     const haveImage=(user)=>{
         if(user.image){
@@ -16,7 +18,14 @@ function Suggestions({people}) {
     }
 
     async function handleFollow(user){
-        console.log(user);
+        try {
+            const follow = await axios.put("/followhandle",{_id:user._id});
+            window.localStorage.setItem("auth",JSON.stringify(follow.data.add));
+            
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
 
     return (
