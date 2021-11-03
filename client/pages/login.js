@@ -39,7 +39,7 @@ function Login(){
         }
         catch(err){
             
-            toast.error("Internal Server Error!");
+            toast.error(err.response.data.err_msg);
         }
     }
     state!==null && router.push("/newsfeed");

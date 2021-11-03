@@ -6,6 +6,7 @@ import axios from "axios";
 import Navbar from "../Components/navbar";
 import { UserProvider } from "../context";
 import "antd/dist/antd.css";
+import '../public/css/follow.css';
 
 axios.defaults.withCredentials = true;
 
@@ -25,7 +26,7 @@ function MyApp({ Component, pageProps }) {
           <link rel="stylesheet" href="./css/login.css" />
         </Head>
         <Navbar />
-        <ToastContainer position="bottom-right" />
+        <ToastContainer position="bottom-right" pauseOnFocusLoss={false}/>
         <Component {...pageProps} />
       </UserProvider>
     </>

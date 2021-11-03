@@ -36,6 +36,15 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
         setIsModalVisible(false);
     };
 
+    function imgavail(card){
+        if(card.postedBy.image){
+            return card.postedBy.image.url;
+        }
+        else{
+            return "./images/avatar.jpg";
+        }
+    }
+
 
 
     if(cards){
@@ -45,7 +54,7 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
                 <div className="card-header"> 
                     <div className="row" style={{display:"flex",justifyContent:"space-between",}}>
                         <div className="col-sm-10">
-                            <span>{(<Avatar size={40}>{card.postedBy.name[0]}</Avatar>)} </span>   
+                            <span>{(<Avatar size={40} src={imgavail(card)}/>)} </span>   
                             <span className="m-2">{card.postedBy.name}</span>   
                             <span className="m-2">{moment(card.createdAt).fromNow()}</span> 
                         </div>

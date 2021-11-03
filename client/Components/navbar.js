@@ -65,6 +65,9 @@ function Navbar(){
                             <Link href="/newsfeed"><a className="nav-link" >NewsFeed</a></Link>
                         </li>
                         <li className="nav-item">
+                            <Link href="/following"><a className="nav-link" >Following</a></Link>
+                        </li>
+                        <li className="nav-item">
                             <Link href="/dashboard"><a className="nav-link" >DashBoard</a></Link>
                         </li>
                         <li className="nav-item">

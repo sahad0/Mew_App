@@ -4,6 +4,7 @@ const auth = require("../middleware/authentication");
 const formidable = require("express-formidable");
 const canupdate = require("../middleware/canupdate");
 const Suggestions = require("../controllers/BasicControllers");
+const { addFollow, addFollower, fetchFollowersPost, fetchFollowing, removeFollower, removeFollow } = require("../controllers/FollowUnfollowControllers");
 
 
 const router = require("express").Router();
@@ -32,6 +33,10 @@ router.delete(`/deletethepost/:_id`,auth,canupdate,deletePost); //delete a post 
 
 //Basic Routers
 router.get("/suggest",auth,Suggestions);
+router.put("/followhandle",auth,addFollower,addFollow);
+router.put("/unfollowhandle",auth,removeFollower,removeFollow);
+router.get("/followerspost",auth,fetchFollowersPost);
+router.get("/fetchFollowers",auth,fetchFollowing);
 
 
 
