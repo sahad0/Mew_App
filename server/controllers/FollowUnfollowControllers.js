@@ -23,7 +23,7 @@ const addFollow = async(req,res)=>{
     try {
         const add = await LoginSchema.findByIdAndUpdate(req._id,{
             $addToSet:{
-                following: req.body._id
+                following: req.body._id,
             },
             
         },{new:true}).select("-pass -secret");
@@ -33,6 +33,33 @@ const addFollow = async(req,res)=>{
         res.status(500).json({err_msg:"Internal Server Error"});
     }
 }
+
+const removeFollower = async(req,res,next)=>{
+    try {
+        const rmvefollower = await LoginSchema.findByIdAndUpdate(req.body._id,{
+            $pull:{
+                followers: req._id,
+            }
+        });
+        next();
+    } catch (err) {
+        res.status(500).json({err_msg:"Internal Server Errorr"});
+    }
+}
+
+const removeFollow = async(req,res)=>{
+    try {
+        const rmvefollow = await LoginSchema.findByIdAndUpdate(req._id,{
+            $pull:{
+                following : req.body._id,
+            }
+        },{new:true}).select("-pass -secret");
+        res.json({rmvefollow});
+    } catch (err) {
+        res.status(500).json({err_msg:"Internal Server Errorrr"});
+    }
+}
+
 
 
 const fetchFollowersPost = async(req,res)=>{
@@ -59,4 +86,4 @@ const fetchFollowing = async(req,res)=>{
     }
 }
 
-module.exports = {addFollow,addFollower,fetchFollowersPost,fetchFollowing};
+module.exports = {addFollow,addFollower,fetchFollowersPost,fetchFollowing,removeFollower,removeFollow};

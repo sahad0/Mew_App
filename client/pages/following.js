@@ -1,12 +1,17 @@
-import {useEffect, useState} from "react";
+import { useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import Autherntication from "../Components/Authenication/authfile"
 import FollowingList from "../Components/FollowandUnFollow/followinglist";
+import { UserContext } from "../context";
+
+
 
 function Following() {
 
+    const [state,setstate] = useContext(UserContext)['state1'];
     const [fpeople,setfpeople] = useState([]);
+
 
     useEffect(()=>{
         fetchFollowing();
@@ -30,9 +35,37 @@ function Following() {
         }
         
     }
+
     async function handleUnFollow(user){
-        return hello;
+        try {
+            const unfollow = await axios.put("/unfollowhandle",{_id:user._id});
+            
+            window.localStorage.setItem("auth",JSON.stringify(unfollow.data.rmvefollow));
+            //rerender_list
+            
+            let updatelist = fpeople.filter((p)=>
+            {
+                if(p._id !== user._id){
+                    return p;
+                }
+                
+                 
+            });
+            
+            
+            setfpeople(updatelist);
+            //context
+            setstate(unfollow.data.rmvefollow);
+            toast.info(`Unfollowed🥺 ${user.name}`);
+            
+
+        } catch (err) {
+            toast.error(err.response.data.err_msg);
+        }
     }
+
+
+
 
 
     return (
