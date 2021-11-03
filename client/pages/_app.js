@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
           <link rel="stylesheet" href="./css/login.css" />
         </Head>
         <Navbar />
-        <ToastContainer position="bottom-right" />
+        <ToastContainer position="bottom-right" pauseOnFocusLoss={false}/>
         <Component {...pageProps} />
       </UserProvider>
     </>

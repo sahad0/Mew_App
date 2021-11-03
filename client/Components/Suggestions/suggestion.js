@@ -1,10 +1,13 @@
 import{List,Avatar} from "antd";
 import axios from "axios";
+import { toast } from "react-toastify";
+import{UsergroupAddOutlined} from "@ant-design/icons";
 
 
 
 
-function Suggestions({people}) {
+
+function Suggestions({people,setstate,setpeople}) {
     
 
     const haveImage=(user)=>{
@@ -20,7 +23,29 @@ function Suggestions({people}) {
     async function handleFollow(user){
         try {
             const follow = await axios.put("/followhandle",{_id:user._id});
+            //localstorage
+            
             window.localStorage.setItem("auth",JSON.stringify(follow.data.add));
+            //rerender_list
+            
+            let updatelist = people.filter((p)=>
+            {
+                if(p._id !== user._id ){
+                    return p;
+                }
+                
+                 
+            });
+            
+            
+            setpeople(updatelist);
+            //context
+            setstate(follow.data.add);
+            var smiley = "✅ 🎀 👻 💖";
+            var smileyArray = smiley.split(" ");
+            console.log(smileyArray);
+            toast(`Following  ${(user.name).toUpperCase()} ${smileyArray[Math.floor(Math.random() * 4)]}`);
+
             
         } catch (error) {
             console.log(error);

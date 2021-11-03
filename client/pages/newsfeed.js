@@ -202,7 +202,7 @@ function Newsfeed() {
 
                     <div className="col-md-3" >
                         <h5 style={{fontStyle:"italic"}} align="center">Friends You may Know!</h5>
-                        <Suggestions  people={people}/>
+                        <Suggestions  people={people}  setstate={setstate} setpeople={setpeople}/>
         
                     </div>
 
