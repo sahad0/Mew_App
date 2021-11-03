@@ -125,7 +125,7 @@ function Newsfeed() {
 
     async function userPost(){
         try{
-            const hello = await axios.get("/userpost");     //refetch posts especialy for after delete and update !important
+            const hello = await axios.get("/followerspost");     //refetch posts especialy for after delete and update !important
             setCards(hello.data);
             
         }
@@ -202,7 +202,7 @@ function Newsfeed() {
 
                     <div className="col-md-3" >
                         <h5 style={{fontStyle:"italic"}} align="center">Friends You may Know!</h5>
-                        <Suggestions  people={people}  setstate={setstate} setpeople={setpeople}/>
+                        <Suggestions  people={people}  setstate={setstate} setpeople={setpeople} userPost={userPost}/>
         
                     </div>
 

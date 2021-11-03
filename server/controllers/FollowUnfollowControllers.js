@@ -1,4 +1,5 @@
 const LoginSchema = require("../models/loginModel");
+const PostSchema = require("../models/postModel");
 
 const addFollower = async(req,res,next)=>{
     try {
@@ -33,4 +34,18 @@ const addFollow = async(req,res)=>{
     }
 }
 
-module.exports={addFollow,addFollower};
+
+const fetchFollowersPost = async(req,res)=>{
+    try {
+        const me = await LoginSchema.findById(req._id);
+        let following = me.following;
+        following.push(req._id);
+
+        const userposts = await PostSchema.find({postedBy : {$in: following}}).populate("postedBy","name _id image").sort({createdAt : -1}).limit(20);
+        res.json(userposts);
+    } catch (err) {
+        
+    }
+}
+
+module.exports={addFollow,addFollower,fetchFollowersPost};

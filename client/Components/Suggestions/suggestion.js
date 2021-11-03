@@ -7,7 +7,7 @@ import{UsergroupAddOutlined} from "@ant-design/icons";
 
 
 
-function Suggestions({people,setstate,setpeople}) {
+function Suggestions({people,setstate,setpeople,userPost}) {
     
 
     const haveImage=(user)=>{
@@ -45,7 +45,7 @@ function Suggestions({people,setstate,setpeople}) {
             var smileyArray = smiley.split(" ");
             console.log(smileyArray);
             toast(`Following  ${(user.name).toUpperCase()} ${smileyArray[Math.floor(Math.random() * 4)]}`);
-
+            userPost();
             
         } catch (error) {
             console.log(error);
