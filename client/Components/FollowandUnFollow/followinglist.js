@@ -1,13 +1,15 @@
 import React from "react";
 import{List,Avatar,Button} from "antd";
 
+
+
 function FollowingList({fpeople,haveImage,handleUnFollow}) {
     return(
         <>
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
-                        <div className="card">
+                        <div className="cardfollow" id="ax1" style={{overflowY:"scroll",height:"330px",scrollbarWidth:"none"}}>
                             <div className="card-body" style={{paddingRight:"35px",}}>
                                 <List className="sm"
                                     itemLayout="horizontal"
@@ -28,6 +30,9 @@ function FollowingList({fpeople,haveImage,handleUnFollow}) {
                                 />
                             </div>
                         </div>
+                    </div>
+                    <div className="col-md-6" >
+                        <img src="./images/blue.png" className="img img-responsive display-3" style={{height:"100%",width:"75%",}}/>
                     </div>
                 </div>
             </div>

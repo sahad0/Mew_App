@@ -6,6 +6,7 @@ import axios from "axios";
 import Navbar from "../Components/navbar";
 import { UserProvider } from "../context";
 import "antd/dist/antd.css";
+import '../public/css/follow.css';
 
 axios.defaults.withCredentials = true;
 
