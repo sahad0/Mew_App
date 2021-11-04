@@ -5,6 +5,7 @@ const formidable = require("express-formidable");
 const canupdate = require("../middleware/canupdate");
 const Suggestions = require("../controllers/BasicControllers");
 const { addFollow, addFollower, fetchFollowersPost, fetchFollowing, removeFollower, removeFollow } = require("../controllers/FollowUnfollowControllers");
+const { liked, unliked } = require("../controllers/likeandUnlikeControllers");
 
 
 const router = require("express").Router();
@@ -37,6 +38,14 @@ router.put("/followhandle",auth,addFollower,addFollow);
 router.put("/unfollowhandle",auth,removeFollower,removeFollow);
 router.get("/followerspost",auth,fetchFollowersPost);
 router.get("/fetchFollowers",auth,fetchFollowing);
+
+
+
+
+
+//Like and Unlike Routers
+router.put("/like",auth,liked);
+router.put("/unlike",auth,unliked);
 
 
 

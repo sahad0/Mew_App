@@ -56,7 +56,7 @@ function Following() {
             setfpeople(updatelist);
             //context
             setstate(unfollow.data.rmvefollow);
-            toast.info(`Unfollowed🥺 ${user.name}`);
+            toast(`Unfollowed💔 ${user.name}`);
             
 
         } catch (err) {

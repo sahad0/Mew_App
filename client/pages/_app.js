@@ -7,6 +7,7 @@ import Navbar from "../Components/navbar";
 import { UserProvider } from "../context";
 import "antd/dist/antd.css";
 import '../public/css/follow.css';
+import '../public/css/newsfeed.css';
 
 axios.defaults.withCredentials = true;
 
@@ -18,15 +19,17 @@ function MyApp({ Component, pageProps }) {
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" /*Material UI */
-            
           />
           <link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.bubble.css" />
 
           <link rel="stylesheet" href="./css/index.css" />
           <link rel="stylesheet" href="./css/login.css" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet" />
         </Head>
         <Navbar />
-        <ToastContainer position="bottom-right" pauseOnFocusLoss={false}/>
+        <ToastContainer position="bottom-right" pauseOnFocusLoss={false} style={{fontStyle:"italic",fontFamily:'Shadows Into Light',}} />
         <Component {...pageProps} />
       </UserProvider>
     </>
