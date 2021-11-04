@@ -189,22 +189,25 @@ function Newsfeed() {
         <Autherntication>
             <div className="container-fluid">
                 <div className="row py-3 ">
-                    <div className="col-md-7"><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image}/>
+                    <div className="col-md-7">
+                        <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image}/></div>
+                        <div><img src="./images/unicorn.png" className="unicorn"></img></div>
                     </div>
-                    
-                </div>
-                <div className="row py-3 ">
-                    <div className="col-md-6">
-                        <PostCards cards={cards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid}/>
-                    </div>
-                    <div className="col-md-3">
-                        </div>
-
-                    <div className="col-md-3" >
+                    <div className="col-md-2"> </div>
+                    <div className="col-md-3 wow" >
                         <h5 style={{fontStyle:"italic"}} align="center">Friends You may Know!</h5>
                         <Suggestions  people={people}  setstate={setstate} setpeople={setpeople} userPost={userPost}/>
         
                     </div>
+                </div>
+                <div className="row py-3 ">
+                    <div className="col-md-6">
+                        <PostCards cards={cards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid} userPost={userPost}/>
+                    </div>
+                    <div className="col-md-3">
+                        </div>
+
+                    
 
                 </div>
             </div>

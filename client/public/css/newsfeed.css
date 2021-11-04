@@ -1,0 +1,15 @@
+.wow{
+    margin-top: 300px;
+}
+.unicorn{
+    margin-top: 5%;
+    height:65%;
+    width: 50%;
+}
+
+
+@media screen and (max-width: 600px) {
+    .wow{
+        margin-top: 5px;
+    }
+  }

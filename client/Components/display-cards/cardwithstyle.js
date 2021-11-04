@@ -1,12 +1,12 @@
 
 import {Modal} from "antd";
 import renderHTML from "react-render-html"
-import {MessageTwoTone,HeartTwoTone,} from "@ant-design/icons"
+import {MessageTwoTone,HeartTwoTone, HeartFilled,} from "@ant-design/icons"
 
 
 
 
-function Cardstyle({card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents}) {
+function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike}) {
     
 
 
@@ -15,6 +15,7 @@ function Cardstyle({card,handleCancel,isModalVisible,setdisplayurl,displayurl,sh
         setdisplaycontents(card.contents);
         showModal();
     }
+    
     
 
     return(
@@ -35,7 +36,21 @@ function Cardstyle({card,handleCancel,isModalVisible,setdisplayurl,displayurl,sh
                 </>
             )}
             <div>
-                <span><HeartTwoTone twoToneColor="#eb2f96" className="mt-3" style={{fontSize:"24px",marginLeft:"3px"}} /> </span> 
+                <span>{
+                    card.likes.includes(state ? state._id : "" ) ? 
+                    (<>
+                        <HeartFilled  onClick={()=>unlike(card._id)}  className="mt-3" style={{color:"#eb2f96", fontSize:"24px",marginLeft:"3px",}}/><span style={{marginLeft:"2%",}}>{card.likes.length }</span> <em style={{marginLeft:"1%"}}>Likes</em>
+                        
+                    </>)
+                    
+                    
+                    :
+                    (<>
+                        <HeartTwoTone twoToneColor="#eb2f96" onClick={()=>like(card._id)} className="mt-3" style={{fontSize:"24px",marginLeft:"3px"}} /><span style={{marginLeft:"2%",}}>{card.likes.length }</span> <em style={{marginLeft:"1%"}}>Likes</em>
+                    </> )
+                    
+                    }
+                </span> 
                 <span><MessageTwoTone  className="mt-3" style={{fontSize:"22px",marginLeft:"3%"}}/></span>
             </div>  
         </div>

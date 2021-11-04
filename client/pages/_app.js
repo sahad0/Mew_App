@@ -7,6 +7,7 @@ import Navbar from "../Components/navbar";
 import { UserProvider } from "../context";
 import "antd/dist/antd.css";
 import '../public/css/follow.css';
+import '../public/css/newsfeed.css';
 
 axios.defaults.withCredentials = true;
 
