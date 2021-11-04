@@ -2,7 +2,7 @@
 import moment  from "moment";
 import {Avatar} from "antd";
 import Cardstyle from "./cardwithstyle";
-import { useContext, useEffect, useState } from "react";
+import { useContext,  useState } from "react";
 import { UserContext } from "../../context";
 import { DeleteTwoTone, EditTwoTone} from "@ant-design/icons"
 import {useRouter} from "next/router";

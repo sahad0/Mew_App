@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 
 
+
 function Suggestions({people,setstate,setpeople,userPost}) {
     
 
@@ -41,10 +42,10 @@ function Suggestions({people,setstate,setpeople,userPost}) {
             setpeople(updatelist);
             //context
             setstate(follow.data.add);
-            var smiley = "✅ 🎀 👻 💖";
+            var smiley = "💕";
             var smileyArray = smiley.split(" ");
             console.log(smileyArray);
-            toast(`Following  ${(user.name).toUpperCase()} ${smileyArray[Math.floor(Math.random() * 4)]}`);
+            toast(`Following  ${(user.name)} ${smileyArray[Math.floor(Math.random() * 1)]}`);
             userPost();
             
         } catch (error) {
