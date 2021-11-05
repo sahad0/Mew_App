@@ -102,7 +102,7 @@ function Register(){
 
 
                     <div className="col-md-4">
-                        <img className=" candyimg img-responsive "src="./images/Screenshot_5.png" />
+                        <img className=" candyimg img-responsive " draggable="false" src="./images/Screenshot_5.png" />
 
 
 

@@ -14,31 +14,33 @@ import { toast } from "react-toastify";
 
 
 function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible,setdeletedid,userPost}) {
-
+    //context
     const[cookiestate,setcookiestate] = useContext(UserContext)['cookies'];
+
     const[state] = useContext(UserContext)['state1'];
 
     const router = useRouter();
 
 
-
+    //modal states
     const [isModalVisible, setIsModalVisible] = useState(false); //postpreview _ modal
     const [displayurl,setdisplayurl] = useState('');
     const [displaycontents,setdisplaycontents] = useState('');
 
     
-  
+    //comment state
+    const [comment,showComment] = useState(false);
      
 
-
+    //modal on clicking image on post visibility
     const showModal = () => {
         setIsModalVisible(true);
     };
-
+    //handling modal close
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-
+    //default image or profile
     function imgavail(card){
         if(card.postedBy.image){
             return card.postedBy.image.url;
@@ -47,7 +49,7 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
             return "./images/avatar.jpg";
         }
     }
-
+    //like function
     async function like(_id){
         try {
             const liked = await axios.put("/like",{_id:_id});
@@ -61,6 +63,7 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
             toast.error(err.response.data.err_msg);
         }
     } 
+    //unlike function
     async function unlike(_id){
         try {
             const unliked = await axios.put("/unlike",{_id:_id});
@@ -97,8 +100,8 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
                         </div>
                     </div>
                 </div>
-                {card.image && (<Cardstyle card={card}   handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} displaycontents={displaycontents} setdisplaycontents={setdisplaycontents} like={like} unlike={unlike} state={state}/>        
-                )}
+                <Cardstyle card={card}   handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} displaycontents={displaycontents} setdisplaycontents={setdisplaycontents} like={like} unlike={unlike} state={state}comment={comment}showComment={showComment} />        
+                
                 {<DeleteModal deletehandleOk={deletehandleOk} deletehandleCancel={ deletehandleCancel  } isDeleteModalVisible={isDeleteModalVisible} />}
             </div>
             

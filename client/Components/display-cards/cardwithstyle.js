@@ -1,20 +1,23 @@
 
-import {Modal} from "antd";
+import {Avatar, Modal} from "antd";
 import renderHTML from "react-render-html"
-import {MessageTwoTone,HeartTwoTone, HeartFilled,} from "@ant-design/icons"
+import {MessageTwoTone,HeartTwoTone, HeartFilled, SendOutlined,} from "@ant-design/icons"
+import {Button,Input} from "antd"
 
 
 
 
-function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike}) {
+function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike,comment,showComment}) {
     
-
+    const {TextArea} = Input;
 
     function displayed(){
         setdisplayurl(card.image.url);
         setdisplaycontents(card.contents);
         showModal();
     }
+
+    
     
     
 
@@ -51,8 +54,14 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
                     
                     }
                 </span> 
-                <span><MessageTwoTone  className="mt-3" style={{fontSize:"22px",marginLeft:"3%"}}/></span>
+                <span><MessageTwoTone onClick={()=>{comment ? showComment(false) : showComment(true)}} className="mt-3" style={{fontSize:"22px",marginLeft:"3%"}}/></span>
             </div>  
+            {comment && (
+                <>
+                    <span className="d-flex justify-content-between my-2"><Avatar shape="circle" src="./images/avatar.jpg" /><Input placeholder="Comment"/><Button type="primary">Send</Button></span>
+                    
+                </>
+            )}
         </div>
 
 

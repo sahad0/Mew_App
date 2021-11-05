@@ -26,7 +26,7 @@ function ProfilePage({setID,id,name,setName,email,setAbout,about,saveProfile}) {
                 </div>
             </div>
             <div className="col-md-6">
-                <img  src="./images/straw1.png" style={{marginLeft:"40%",position:"relative",width:"70%",height:"95%",}} />
+                <img  src="./images/straw1.png" draggable="false" style={{marginLeft:"40%",position:"relative",width:"70%",height:"95%",}} />
             </div>
         </div>
         </div>
