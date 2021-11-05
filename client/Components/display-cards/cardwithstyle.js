@@ -7,7 +7,7 @@ import {Button,Input} from "antd"
 
 
 
-function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike,comment,showComment}) {
+function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike,comment,showComment,commentid,setcommentid}) {
     
     const {TextArea} = Input;
 
@@ -17,6 +17,16 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
         showModal();
     }
 
+    function addcomments(_id){
+        if(comment===false){
+            showComment(true);
+            setcommentid(_id);
+        }
+        else{
+            showComment(false);
+            setcommentid("");
+        }
+    }
     
     
     
@@ -54,11 +64,11 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
                     
                     }
                 </span> 
-                <span><MessageTwoTone onClick={()=>{comment ? showComment(false) : showComment(true)}} className="mt-3" style={{fontSize:"22px",marginLeft:"3%"}}/></span>
+                <span><MessageTwoTone onClick={()=>{addcomments(card._id)}} className="mt-3" style={{fontSize:"22px",marginLeft:"3%"}}/></span>
             </div>  
-            {comment && (
+            {comment  && (commentid === card._id) && (
                 <>
-                    <span className="d-flex justify-content-between my-2"><Avatar shape="circle" src="./images/avatar.jpg" /><Input placeholder="Comment"/><Button type="primary">Send</Button></span>
+                    <span className="d-flex justify-content-between my-2"><Avatar shape="circle" src="./images/avatar.jpg" /><Input placeholder="Comment" style={{width:"80%",}} /><Button type="primary">Send</Button></span>
                     
                 </>
             )}

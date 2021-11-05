@@ -30,6 +30,7 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
     
     //comment state
     const [comment,showComment] = useState(false);
+    const [commentid,setcommentid] = useState("");
      
 
     //modal on clicking image on post visibility
@@ -100,7 +101,9 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
                         </div>
                     </div>
                 </div>
-                <Cardstyle card={card}   handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} displaycontents={displaycontents} setdisplaycontents={setdisplaycontents} like={like} unlike={unlike} state={state}comment={comment}showComment={showComment} />        
+                <Cardstyle card={card}   handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} 
+                displaycontents={displaycontents} setdisplaycontents={setdisplaycontents} like={like} unlike={unlike} state={state}comment={comment}showComment={showComment} 
+                commentid={commentid} setcommentid={setcommentid}/>        
                 
                 {<DeleteModal deletehandleOk={deletehandleOk} deletehandleCancel={ deletehandleCancel  } isDeleteModalVisible={isDeleteModalVisible} />}
             </div>
