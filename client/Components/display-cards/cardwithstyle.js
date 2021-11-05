@@ -47,7 +47,8 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
     async function handleComment(){
         try {
             const comment = grabComment;
-            const addedComment = await axios.put("/addComment",{comment:comment});
+            const addedComment = await axios.put("/addComment",{comment:comment,_cid:commentid});
+            setGrabComment("");
             toast.success("added"); 
         } catch (err) {
             toast.error("error");

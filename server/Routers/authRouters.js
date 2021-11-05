@@ -7,6 +7,7 @@ const canupdate = require("../middleware/canupdate");
 const { addFollow, addFollower, fetchFollowersPost, fetchFollowing, removeFollower, removeFollow } = require("../controllers/FollowUnfollowControllers");
 const { liked, unliked } = require("../controllers/likeandUnlikeControllers");
 const Suggestions = require("../controllers/suggestionControllers");
+const commentController = require("../controllers/commentController");
 
 
 const router = require("express").Router();
@@ -47,6 +48,11 @@ router.get("/fetchFollowers",auth,fetchFollowing);
 //Like and Unlike Routers
 router.put("/like",auth,liked);
 router.put("/unlike",auth,unliked);
+
+
+
+//Comment Router
+router.put("/addComment",auth,commentController);
 
 
 

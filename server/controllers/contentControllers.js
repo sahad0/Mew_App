@@ -34,7 +34,7 @@ const imageUpload = async(req,res)=>{
         });
     }
     catch(err){
-        return res.status(500).send();
+        return res.status(500).json({err_msg:"File Size too Big!"});
     }
 }
 
