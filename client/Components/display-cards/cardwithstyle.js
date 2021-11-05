@@ -3,30 +3,42 @@ import {Avatar, Modal} from "antd";
 import renderHTML from "react-render-html"
 import {MessageTwoTone,HeartTwoTone, HeartFilled, SendOutlined,} from "@ant-design/icons"
 import {Button,Input} from "antd"
+import { useState } from "react";
+
 
 
 
 
 function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike,comment,showComment,commentid,setcommentid}) {
     
-    const {TextArea} = Input;
+    const [commentImage,setcommentImage] = useState("");
 
     function displayed(){
         setdisplayurl(card.image.url);
         setdisplaycontents(card.contents);
         showModal();
     }
+    function CommentProfileImage(){
+        if(state.image){
+            setcommentImage(state.image.url);
+        }
+        else{
+            setcommentImage("./images/avatar.jpg");
+        }
+    }
 
     function addcomments(_id){
         if(comment===false){
             showComment(true);
             setcommentid(_id);
+            CommentProfileImage();
         }
         else{
             showComment(false);
             setcommentid("");
         }
     }
+    
     
     
     
@@ -68,7 +80,7 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
             </div>  
             {comment  && (commentid === card._id) && (
                 <>
-                    <span className="d-flex justify-content-between my-2"><Avatar shape="circle" src="./images/avatar.jpg" /><Input placeholder="Comment" style={{width:"80%",}} /><Button type="primary">Send</Button></span>
+                    <span className="d-flex justify-content-between my-2"><Avatar shape="circle" src={commentImage} ></Avatar><Input placeholder="Comment" style={{width:"80%",}} /><Button type="primary">Send</Button></span>
                     
                 </>
             )}
