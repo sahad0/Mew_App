@@ -38,6 +38,9 @@ function Newsfeed() {
     //Suggestion State
     const[people,setpeople] = useState([]);
 
+    //show and hide text editor
+    const[teditor,showteditor] = useState(false);
+
 
     
 
@@ -99,7 +102,7 @@ function Newsfeed() {
             if(createpost){
                 setTimeout(()=>{
                     userPost();
-                },2000)
+                },2000);
                 
             }
             setcontent("");
@@ -107,7 +110,7 @@ function Newsfeed() {
                 url : "",
                 public_id : "",
             });
-            
+            showteditor(false);
             toast.success("Post Created!");
             
         }
@@ -205,8 +208,8 @@ function Newsfeed() {
             <div className="container-fluid">
                 <div className="row py-3 ">
                     <div className="col-md-7">
-                        <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image}/></div>
-                        <div><img src="./images/unicorn.png" className="unicorn"></img></div>
+                        <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image} teditor={teditor}showteditor={showteditor} /></div>
+                        <div><img src="./images/mew_news.png" draggable="false" className="unicorn"></img></div>
                     </div>
                     <div className="col-md-2"> </div>
                     <div className="col-md-3 wow" >
