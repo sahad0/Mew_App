@@ -3,9 +3,10 @@ const { contents, imageUpload, userPost, updatePost, saveEdit, deletePost,} = re
 const auth = require("../middleware/authentication");
 const formidable = require("express-formidable");
 const canupdate = require("../middleware/canupdate");
-const Suggestions = require("../controllers/BasicControllers");
+
 const { addFollow, addFollower, fetchFollowersPost, fetchFollowing, removeFollower, removeFollow } = require("../controllers/FollowUnfollowControllers");
 const { liked, unliked } = require("../controllers/likeandUnlikeControllers");
+const Suggestions = require("../controllers/suggestionControllers");
 
 
 const router = require("express").Router();

@@ -34,9 +34,7 @@ const loginSchema = mongoose.Schema({
     },
 
     about : {},
-    photo : {
-        type:String
-    },
+    image : {url:String , public_id:String},
     following : [{type : ObjectId ,ref:"User"}],
     followers : [{type : ObjectId ,ref:"User"}],
     verified: {type:Boolean},

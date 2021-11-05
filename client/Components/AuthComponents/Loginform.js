@@ -24,7 +24,7 @@ function Loginform({loginfunction,setLoginemail,setLoginpass,loginemail,loginpas
                     
                 </div>
                 <div className="col-md-4">
-                    <img className=" candyimg img-responsive "src="./images/Screenshot_4.png" />
+                    <img className=" candyimg img-responsive " draggable="false" src="./images/Screenshot_4.png" />
                     <figure className="text-end">
                         <blockquote className="blockquote">
                             <p>A well-known quote, contained in a blockquote element.</p>
