@@ -9,16 +9,23 @@ import Suggestions from "../Components/Suggestions/suggestion";
 
 
 function Newsfeed() {
-
-    //fetch states and set card
+    //Context
     const[state,setstate] = useContext(UserContext)['state1'];
-    const [content,setcontent] = useState("");          //contents
+
+    
+    //post contents-- Text editor
+    const [content,setcontent] = useState("");   
+    //post images   -- Text Editor  
     const [image,setImage] = useState({
         url:"",
         public_id: "",
     });
+    //---Image loading symbol state
     const [loading,setLoading] = useState(false);
 
+
+
+    //posts array state
     const [cards,setCards] = useState([]);
 
 
@@ -27,39 +34,45 @@ function Newsfeed() {
     const [deletedid,setdeletedid] = useState("");
     const [okdelete,setokaydelete] = useState(false);
 
+
     //Suggestion State
     const[people,setpeople] = useState([]);
+
+    //show and hide text editor
+    const[teditor,showteditor] = useState(false);
 
 
     
 
-
-
+    //fixing  button on rich editor empty content
     useEffect(()=>{
-        if(content === "<p><br></p>"){              //disable button on rich editor empty content
+        if(content === "<p><br></p>"){              
             setcontent("")
         }
     },[content]);
     
 
      useEffect(()=>{
-       userPost();                  //fetch on mount
-       findSuggestions();           //friend Suggestion
+        //fetch posts on mount
+        userPost();  
+        //friend Suggestion
+        findSuggestions();           
      },[state && state.token]);
 
-     useEffect(()=>{
-        window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal 
+    //on return from update page removes update key from local storage (toggling post keys)
+    useEffect(()=>{
+        window.localStorage.getItem("update") && window.localStorage.removeItem("update"); 
     },[]);
 
 
 
-    //delete useeffects
+    //Modal appearing before delete
     useEffect(()=>{
         if(deletedid.length>0){
             setIsDeleteModalVisible(true);
         }
     },[deletedid]);
-
+    //takes effect when set okay on modal
     useEffect(()=>{
         if(okdelete === true){
             deletethepost();
@@ -70,9 +83,11 @@ function Newsfeed() {
     },[okdelete]);
 
 
+
+
 //Part One Functions
 
-//fetch post  and create post functions
+//Making a post in text editor
     async function contentextract(e){
         e.preventDefault();
         try{
@@ -87,7 +102,7 @@ function Newsfeed() {
             if(createpost){
                 setTimeout(()=>{
                     userPost();
-                },2000)
+                },2000);
                 
             }
             setcontent("");
@@ -95,7 +110,7 @@ function Newsfeed() {
                 url : "",
                 public_id : "",
             });
-            
+            showteditor(false);
             toast.success("Post Created!");
             
         }
@@ -103,6 +118,9 @@ function Newsfeed() {
             return toast.error("Internal Server Error");
         }
     }
+
+
+    //handling image and getting url and setting up in state
     async function handleImage(e){
         const files = e.target.files[0];
         let formData = new FormData();
@@ -122,7 +140,7 @@ function Newsfeed() {
         }
     }
 
-
+    //refetching posts for certain constions like update and delete
     async function userPost(){
         try{
             const hello = await axios.get("/followerspost");     //refetch posts especialy for after delete and update !important
@@ -190,8 +208,8 @@ function Newsfeed() {
             <div className="container-fluid">
                 <div className="row py-3 ">
                     <div className="col-md-7">
-                        <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image}/></div>
-                        <div><img src="./images/unicorn.png" className="unicorn"></img></div>
+                        <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image} teditor={teditor}showteditor={showteditor} /></div>
+                        <div><img src="./images/mew_news.png" draggable="false" className="unicorn"></img></div>
                     </div>
                     <div className="col-md-2"> </div>
                     <div className="col-md-3 wow" >

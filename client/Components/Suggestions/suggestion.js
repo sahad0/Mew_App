@@ -66,7 +66,7 @@ function Suggestions({people,setstate,setpeople,userPost}) {
                         <List.Item.Meta
                         avatar={<Avatar shape="square" size="large" src={haveImage(user)} />}
                         title={<div className="d-flex justify-content-between py-2">
-                                <div>{user.name}</div>
+                                <div style={{fontStyle:"italic",}}>{user.name}</div>
                                 <div style={{cursor:"pointer"}} onClick={()=>handleFollow(user)}  >Follow</div>
                             </div>
                             }
