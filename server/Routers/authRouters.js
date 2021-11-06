@@ -7,7 +7,8 @@ const canupdate = require("../middleware/canupdate");
 const { addFollow, addFollower, fetchFollowersPost, fetchFollowing, removeFollower, removeFollow } = require("../controllers/FollowUnfollowControllers");
 const { liked, unliked } = require("../controllers/likeandUnlikeControllers");
 const Suggestions = require("../controllers/suggestionControllers");
-const commentController = require("../controllers/commentController");
+const { commentController, removeCommentController } = require("../controllers/commentController");
+
 
 
 const router = require("express").Router();
@@ -53,6 +54,7 @@ router.put("/unlike",auth,unliked);
 
 //Comment Router
 router.put("/addComment",auth,commentController);
+router.put("/addComment",auth,removeCommentController);
 
 
 

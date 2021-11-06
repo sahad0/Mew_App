@@ -40,7 +40,7 @@ const imageUpload = async(req,res)=>{
 
 const userPost = async(req,res)=>{
     try{
-        const userpost = await PostSchema.find({postedBy : req._id}).populate("postedBy","_id name image").sort({createdAt: -1}).limit(10);
+        const userpost = await PostSchema.find({postedBy : req._id}).populate("postedBy","name _id image").populate("comments.postedBy","_id name image").sort({createdAt: -1}).limit(10);
         res.status(200).json(userpost);
     }
     catch(err){
