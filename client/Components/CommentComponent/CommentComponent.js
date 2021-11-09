@@ -11,7 +11,7 @@ function CommentComponent({card}) {
             
             <div className="card" >
                 
-                {card.comments.slice(-2).map((c,i)=>{
+                {card.comments.slice(-2).reverse().map((c)=>{
                     return (
                         <div className="card-header" key={c._id}>
                             <Comment
@@ -28,9 +28,8 @@ function CommentComponent({card}) {
                                     </p>
                                 }
                                 datetime={
-                                    <Tooltip title={moment().format('HH:mm:ss')}>
-                                    <span>{moment(c.createdAt).fromNow()}</span>
-                                    </Tooltip>
+                                    moment(c.created).fromNow()
+                                    
                                 }
                                 
                             />
