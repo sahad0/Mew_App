@@ -143,8 +143,8 @@ function Newsfeed() {
     //refetching posts for certain constions like update and delete
     async function userPost(){
         try{
-            const hello = await axios.get("/followerspost");     //refetch posts especialy for after delete and update !important
-            setCards(hello.data);
+            const {data} = await axios.get("/followerspost");     //refetch posts especialy for after delete and update !important
+            setCards(data);
             
         }
         catch(err){

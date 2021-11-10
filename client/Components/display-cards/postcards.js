@@ -1,6 +1,5 @@
-
-import moment  from "moment";
-import {Avatar} from "antd";
+import moment from "moment";
+import {Avatar} from"antd";
 import Cardstyle from "./cardwithstyle";
 import { useContext,  useState } from "react";
 import { UserContext } from "../../context";
@@ -103,7 +102,7 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
                 </div>
                 <Cardstyle card={card}   handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} 
                 displaycontents={displaycontents} setdisplaycontents={setdisplaycontents} like={like} unlike={unlike} state={state}comment={comment}showComment={showComment} 
-                commentid={commentid} setcommentid={setcommentid}/>        
+                commentid={commentid} setcommentid={setcommentid} userPost={userPost}/>        
                 
                 {<DeleteModal deletehandleOk={deletehandleOk} deletehandleCancel={ deletehandleCancel  } isDeleteModalVisible={isDeleteModalVisible} />}
             </div>
@@ -117,4 +116,6 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
         return <>Hello</>
     }
 }
+
+
 export default PostCards;

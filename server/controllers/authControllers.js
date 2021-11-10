@@ -4,6 +4,7 @@ const LoginSchema = require("../models/loginModel");
 const jwt = require("jsonwebtoken");
 const {nanoid} = require("nanoid");
 const { findByIdAndUpdate } = require("../models/loginModel");
+const cloudinary = require("cloudinary");
 
 const register = async (req, res) => {
    
@@ -220,4 +221,18 @@ const saveProfile = async (req,res)=>{
   }
 }
 
-module.exports = { register, login, logout, loggedIn ,authorised,saveProfile};
+const profileImage = async(req,res)=>{
+  try{
+      const imgUrl = await cloudinary.uploader.upload(req.files.image.path);
+      const profileImage = await LoginSchema.findByIdAndUpdate(req._id,{image:{url:imgUrl.url,public_id:imgUrl.public_id}},{new:true}).select("-pass -secret");
+      if(profileImage){
+        res.json(profileImage);
+      }
+        
+  }
+  catch(err){
+      return res.status(500).json({err_msg:"File Size too Big!"});
+  }
+}
+
+module.exports = { register, login, logout, loggedIn ,authorised,saveProfile,profileImage};

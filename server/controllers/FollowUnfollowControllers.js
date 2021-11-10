@@ -68,7 +68,7 @@ const fetchFollowersPost = async(req,res)=>{
         let following = me.following;
         following.push(req._id);
 
-        const userposts = await PostSchema.find({postedBy : {$in: following}}).populate("postedBy","name _id image").sort({createdAt : -1}).limit(20);
+        const userposts = await PostSchema.find({postedBy : {$in: following}}).populate("comments.postedBy","name _id image").populate("postedBy","name _id image").sort({createdAt : -1}).limit(20);
         res.json(userposts);
     } catch (err) {
         

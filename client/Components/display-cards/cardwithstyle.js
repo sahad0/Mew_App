@@ -3,18 +3,29 @@ import {Avatar, Modal} from "antd";
 import renderHTML from "react-render-html"
 import {MessageTwoTone,HeartTwoTone, HeartFilled, SendOutlined,} from "@ant-design/icons"
 import {Button,Input} from "antd"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import CommentComponent from "../CommentComponent/CommentComponent";
 
 
 
 
 
-function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike,comment,showComment,commentid,setcommentid}) {
+function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike,comment,showComment,commentid,setcommentid,userPost}) {
     
     const [commentImage,setcommentImage] = useState("");
     const [grabComment,setGrabComment] = useState("");
+    const [commentPosted,setCommentPosted] = useState(false);
+
+    //effect to run on comment posted
+    useEffect(()=>{
+        if(true){
+            userPost();
+            setCommentPosted(false);
+        }
+    },[commentPosted]);
+    
     //card modal
     function displayed(){
         setdisplayurl(card.image.url);
@@ -48,8 +59,13 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
         try {
             const comment = grabComment;
             const addedComment = await axios.put("/addComment",{comment:comment,_cid:commentid});
-            setGrabComment("");
-            toast.success("added"); 
+            if(addedComment){
+                setGrabComment("");
+                showComment(false);
+                setCommentPosted(true);
+            }
+            
+            
         } catch (err) {
             toast.error("error");
         }
@@ -92,7 +108,7 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
                     
                     }
                 </span> 
-                <span><MessageTwoTone onClick={()=>{addcomments(card._id)}} className="mt-3" style={{fontSize:"22px",marginLeft:"3%"}}/></span>
+                <span><MessageTwoTone onClick={()=>{addcomments(card._id)}} className="mt-3" style={{fontSize:"22px",marginLeft:"3%"}}/></span><span style={{marginLeft:"2%",}}>{card.comments.length }</span> <em style={{marginLeft:"1%"}}>Comments</em>
             </div>  
             {comment  && (commentid === card._id) && (
                 <>
@@ -103,6 +119,9 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
                     
                 </>
             )}
+            <div>
+                <CommentComponent card={card} />
+            </div>
         </div>
 
 
