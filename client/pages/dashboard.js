@@ -16,7 +16,7 @@ function Dashboard() {
     },[state]);
 
     function imgCheck(){
-        if(state){
+        if(state && state.img){
             setImg(state.image.url);
         }
         else{
