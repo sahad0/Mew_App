@@ -1,4 +1,4 @@
-const {register,login,logout,loggedIn,authorised, saveProfile,} = require("../controllers/authControllers");
+const {register,login,logout,loggedIn,authorised, saveProfile, profileImage,} = require("../controllers/authControllers");
 const { contents, imageUpload, userPost, updatePost, saveEdit, deletePost,} = require("../controllers/contentControllers");
 const auth = require("../middleware/authentication");
 const formidable = require("express-formidable");
@@ -32,7 +32,8 @@ router.get(`/editpost/:_id`,auth,updatePost);   //fetch to update
 router.put(`/editsaved/:_id`,auth,canupdate,saveEdit);  //update fetched along with image
 router.delete(`/deletethepost/:_id`,auth,canupdate,deletePost); //delete a post made
 
-
+//ProfileImage router
+router.put("/profileImg",auth,formidable({maxFileSize: 8 * 1024 * 1024}),profileImage);
 
 
 //Basic Routers

@@ -8,6 +8,7 @@ import { UserProvider } from "../context";
 import "antd/dist/antd.css";
 import '../public/css/follow.css';
 import '../public/css/newsfeed.css';
+import '../public/css/dashboard.css';
 
 axios.defaults.withCredentials = true;
 
