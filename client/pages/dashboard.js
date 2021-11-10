@@ -20,6 +20,9 @@ function Dashboard() {
             if(state.image){
                 setImg(state.image.url);
             }
+            else{
+                setImg("./images/avatar.jpg");
+            }
             
         }
         else{
