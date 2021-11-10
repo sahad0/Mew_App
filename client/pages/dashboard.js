@@ -16,8 +16,14 @@ function Dashboard() {
     },[state]);
 
     function imgCheck(){
-        if(state && state.img){
-            setImg(state.image.url);
+        if(state){
+            if(state.image){
+                setImg(state.image.url);
+            }
+            else{
+                setImg("./images/avatar.jpg");
+            }
+            
         }
         else{
             setImg("./images/avatar.jpg");
