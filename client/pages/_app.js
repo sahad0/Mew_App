@@ -9,6 +9,7 @@ import "antd/dist/antd.css";
 import '../public/css/follow.css';
 import '../public/css/newsfeed.css';
 import '../public/css/dashboard.css';
+import '../public/css/profile.css';
 
 axios.defaults.withCredentials = true;
 
