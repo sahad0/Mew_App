@@ -1,8 +1,12 @@
 
 
 .dashcard:hover{
-    transition: 1.2s;
+    transition: 1.1s ease-in-out;
     box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}
+.dashcard:not(:hover){
+    transition: 1.2s ease-in-out;
+    box-shadow: 0px;
 }
 .ffont:hover{
     color: blue;
