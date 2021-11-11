@@ -1,7 +1,11 @@
 import {Input,Button} from "antd";
+import Typewriter  from "typewriter-effect";
 
 function ProfilePage({setID,id,name,setName,email,setAbout,about,saveProfile}) {
     const { TextArea } = Input;
+
+     
+
     return(<>
         <div className="container">
 
@@ -13,15 +17,26 @@ function ProfilePage({setID,id,name,setName,email,setAbout,about,saveProfile}) {
             <div className="col-md-6" >
                 <div className="card profilecard" style={{borderRadius:"8px",}}  >
                     <div className="card-body">
-                        <h1 className="display-6 text-center p-2">💖Mew_Book </h1> 
+                        <h1 className="display-6 text-center p-2 demo">{
+                            <Typewriter
+                                    onInit={(typewriter) => {
+                                    
+                                    typewriter.typeString('Mew_Book 💖 ')
+                                    .pauseFor(2500)
+                                    .start();
+
+                                    
+                                }}
+                            />}
+                        </h1> 
                         <Input size="large" className=" my-1" style={{fontStyle:"italic",}} placeholder="UserID" onChange={(e)=>{setID(e.target.value)}} value={id} />
                         <Input size="large" className=" my-1" style={{fontStyle:"italic",}} placeholder="Name" onChange={(e)=>{setName(e.target.value)}} value={name}/>
                         <Input size="large" className=" my-1" style={{fontStyle:"italic",}} placeholder="Email" disabled value={email}/>
                         
                         <TextArea rows={5} className=" my-1" placeholder="About Me" style={{resize:"none",}} onChange={(e)=>{setAbout(e.target.value)}} value={about}/>
                         <span>
-                            <Button type="primary"  style={{backgroundColor:"#5CB85C",border:"#5CB85C",fontStyle:"italic"}} className="my-3" onClick={saveProfile}> Save</Button>
-                            <Button type="primary"  className="my-3 mx-2" style={{backgroundColor:"#A020F0",border:"#A020F0",fontStyle:"italic",}} >Update Password</Button>
+                            <Button type="danger"  style={{border:"#5CB85C",fontStyle:"italic"}} className="my-3" onClick={saveProfile}> Save</Button>
+                            <Button type="ghost"  className="my-3 mx-2" style={{border:"#A020F0",fontStyle:"italic",}} >Update Password</Button>
                         </span>
                     </div>
                 </div>

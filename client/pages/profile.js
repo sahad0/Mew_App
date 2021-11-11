@@ -63,7 +63,8 @@ function Profile() {
 
     return (
     <Autherntication>
-        <ProfilePage setID={setID} id={id} name={name} setName={setName} email={email} setAbout={setAbout} about={about} saveProfile={saveProfile} />
+        {state ? (<ProfilePage setID={setID} id={id} name={name} setName={setName} email={email} setAbout={setAbout} about={about} saveProfile={saveProfile} />): ""}
+        
     </Autherntication>
     )
 };

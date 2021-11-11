@@ -1,9 +1,8 @@
-.profilecard:hover{
-    transition: 1.1s ease-in-out;
+.profilecard{
     box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+    transition: 1s;
 }
-.profilecard:not(:hover){
-    transition: 1.2s ease-in-out;
-    box-shadow: 0px;
+.profilecard:hover{
+    box-shadow: 1px 0px 7px rgba(0,0,0, .2);
     
 }
