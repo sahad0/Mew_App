@@ -5,23 +5,19 @@ import { UserContext } from "../context";
 
 
 function Home(){
-    const [cookieinfo,setcookieinfo] = useState(false);                             //Toastify fn
+    
     const[cookiestate,setcookiestate] = useContext(UserContext)['cookies'];
 
 
     useEffect(()=>{
         window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal
-        setcookieinfo(true);
+        
         !cookiestate && cleartokens();
-        cookiefn();
+        
     },[]);
 
 
-     function cookiefn(){
-        if(cookieinfo){                                                             //Toastify fn
-            toast.info(`This site uses Cookies!`);
-        }
-    }
+     
 
     function cleartokens(){
         window.localStorage.removeItem('auth');

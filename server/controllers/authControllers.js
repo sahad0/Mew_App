@@ -226,7 +226,7 @@ const profileImage = async(req,res)=>{
       const imgUrl = await cloudinary.uploader.upload(req.files.image.path);
       const profileImage = await LoginSchema.findByIdAndUpdate(req._id,{image:{url:imgUrl.url,public_id:imgUrl.public_id}},{new:true}).select("-pass -secret");
       if(profileImage){
-        res.json(profileImage);
+        res.json({user:profileImage});
       }
         
   }

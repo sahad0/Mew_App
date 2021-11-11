@@ -37,8 +37,8 @@ function Dashboard() {
         try{
             const imageupload = await axios.put("/profileImg",formData);
             if(imageupload){
-                window.localStorage.setItem("auth",JSON.stringify(imageupload.data));
-                setstate(imageupload.data);
+                window.localStorage.setItem("auth",JSON.stringify(imageupload.data.user));
+                setstate(imageupload.data.user);
             }
 
         }

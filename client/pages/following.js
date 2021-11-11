@@ -19,7 +19,7 @@ function Following() {
 
     async function fetchFollowing(){
         try {
-            const following = await axios.get("/fetchFollowers");
+            const following = await axios.get("/fetchfollowing");
             setfpeople(following.data);
         } catch (err) {
             toast.error(err.response.data.err_msg);

@@ -4,7 +4,7 @@ const auth = require("../middleware/authentication");
 const formidable = require("express-formidable");
 const canupdate = require("../middleware/canupdate");
 
-const { addFollow, addFollower, fetchFollowersPost, fetchFollowing, removeFollower, removeFollow } = require("../controllers/FollowUnfollowControllers");
+const { addFollow, addFollower, fetchFollowersPost, fetchFollowing, removeFollower, removeFollow, fetchFollowers } = require("../controllers/FollowUnfollowControllers");
 const { liked, unliked } = require("../controllers/likeandUnlikeControllers");
 const Suggestions = require("../controllers/suggestionControllers");
 const { commentController, removeCommentController } = require("../controllers/commentController");
@@ -41,7 +41,8 @@ router.get("/suggest",auth,Suggestions);
 router.put("/followhandle",auth,addFollower,addFollow);
 router.put("/unfollowhandle",auth,removeFollower,removeFollow);
 router.get("/followerspost",auth,fetchFollowersPost);
-router.get("/fetchFollowers",auth,fetchFollowing);
+router.get("/fetchfollowing",auth,fetchFollowing);
+router.get("/fetchfollowers",auth,fetchFollowers);
 
 
 

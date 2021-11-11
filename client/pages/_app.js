@@ -9,6 +9,8 @@ import "antd/dist/antd.css";
 import '../public/css/follow.css';
 import '../public/css/newsfeed.css';
 import '../public/css/dashboard.css';
+import '../public/css/profile.css';
+
 
 axios.defaults.withCredentials = true;
 
@@ -21,10 +23,12 @@ function MyApp({ Component, pageProps }) {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" /*Material UI */
           />
+          <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
           <link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.bubble.css" />
 
           <link rel="stylesheet" href="./css/index.css" />
           <link rel="stylesheet" href="./css/login.css" />
+          
           
         </Head>
         <Navbar />
