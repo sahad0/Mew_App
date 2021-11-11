@@ -79,11 +79,21 @@ const fetchFollowing = async(req,res)=>{
     try {
         const me = await LoginSchema.findById(req._id);
         const following = me.following;
-        const flwing = await LoginSchema.find({_id:{$in:following}}).select("-pass -secret -createdAt -updatedAt -following -followers");
+        const flwing = await LoginSchema.find({_id:{$in:following}}).select("-pass -secret -createdAt -updatedAt -following -followers -email");
         res.json(flwing);
     } catch (err) {
         res.status(500).json({err_msg:"Internal Server Error"}); 
     }
 }
+const fetchFollowers = async(req,res)=>{
+    try {
+        const me = await LoginSchema.findById(req._id);
+        const followers = me.followers;
+        const flwr = await LoginSchema.find({_id:{$in:followers}}).select("-pass -secret -createdAt -updatedAt -following -followers -email");
+        res.json(flwr);
+    } catch (err) {
+        res.status(500).json({err_msg:"Internal Server Error"}); 
+    }
+}
 
-module.exports = {addFollow,addFollower,fetchFollowersPost,fetchFollowing,removeFollower,removeFollow};
+module.exports = {addFollow,addFollower,fetchFollowersPost,fetchFollowing,removeFollower,removeFollow,fetchFollowers};

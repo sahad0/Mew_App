@@ -1,0 +1,51 @@
+import{List,Avatar,Button} from "antd";
+
+function FollowersList({followers,haveImage}) {
+
+
+    async function RemoveFollower(user){
+        return ;
+    }
+
+
+
+    return (
+        <>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="cardfollow" id="ax1" style={{overflowY:"scroll",height:"330px",scrollbarWidth:"none"}}>
+                            <div className="card-body" style={{paddingRight:"35px",}}>
+                                <List className="sm"
+                                    itemLayout="horizontal"
+                                    dataSource={followers}
+                                    renderItem={(user) => (
+                                    <List.Item>
+                                        <List.Item.Meta
+                                        avatar={<Avatar shape="square" size="large" src={haveImage(user)} />}
+                                        title={<div className="d-flex justify-content-between py-2">
+                                                <div style={{fontStyle:"italic"}}>{user.name}</div>
+                                                <Button type="primary" style={{cursor:"pointer",backgroundColor:"#B19CD9",border:"#B19CD9"}} onClick={()=>RemoveFollower(user)}>Remove</Button>
+                                            </div>
+                                            }
+                                        
+                                        />
+                                    </List.Item>
+                                    )}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-6" >
+                        <img src="./images/blue.png" draggable="false" className="img img-responsive display-3" style={{height:"100%",width:"75%",}}/>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </>
+    )
+};
+
+export default FollowersList;
