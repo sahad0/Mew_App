@@ -6,7 +6,7 @@ import PostCards from "../Components/display-cards/postcards";
 import CreatePost from "../Components/Forms/Createpostform";
 import { UserContext } from "../context";
 import Suggestions from "../Components/Suggestions/suggestion";
-
+import {useRouter} from "next/router";
 
 function Newsfeed() {
     //Context
@@ -26,8 +26,9 @@ function Newsfeed() {
 
 
     //posts array state
-    const [cards,setCards] = useState([]);
-
+    let [cards,setCards] = useState([]);
+    //ROUTER
+    const router = useRouter();
 
     //delete states
     const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);//delete okay or not modal
@@ -40,6 +41,11 @@ function Newsfeed() {
 
     //show and hide text editor
     const[teditor,showteditor] = useState(false);
+
+    //infinity scroll
+    const[getinfinity,setinfinity] = useState(false);
+    //page no infinity scroll
+    const[page,setPage] = useState(1);
 
 
     
@@ -54,7 +60,7 @@ function Newsfeed() {
 
      useEffect(()=>{
         //fetch posts on mount
-        userPost();  
+        infinityPost(); 
         //friend Suggestion
         findSuggestions();           
      },[state && state.token]);
@@ -82,6 +88,17 @@ function Newsfeed() {
         
     },[okdelete]);
 
+    //infinity scroll
+    useEffect(()=>{
+        if(getinfinity){
+            setPage(page+1);
+            infinityPost();
+            setinfinity(false);
+        }
+        
+        
+    },[getinfinity]);
+
 
 
 
@@ -101,7 +118,7 @@ function Newsfeed() {
             }
             if(createpost){
                 setTimeout(()=>{
-                    userPost();
+                    router.reload(window.location.pathname);
                 },2000);
                 
             }
@@ -143,8 +160,26 @@ function Newsfeed() {
     //refetching posts for certain constions like update and delete
     async function userPost(){
         try{
-            const {data} = await axios.get("/followerspost");     //refetch posts especialy for after delete and update !important
-            setCards(data);
+            // const {data} = await axios.get("/followerspost");     //refetch posts especialy for after delete and update !important
+            setCards(cards);
+            
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+    //infinite scroll call
+    async function infinityPost(){
+        try{
+            const {data} = await axios.get(`/infinitypost/${page}`);     //refetch posts especialy for after delete and update !important
+            if(data){
+                let ax = [...cards];
+                for( let i=0;i<data.length;i++){
+                   ax.push(data[i]);
+                }
+                setCards(ax);
+               
+            }
             
         }
         catch(err){
@@ -172,7 +207,7 @@ function Newsfeed() {
              setdeletedid("");
              if(deleted){
                 setTimeout(()=>{
-                    userPost();
+                    router.reload(window.location.pathname);
                 },2000)
                 
             }
@@ -199,13 +234,34 @@ function Newsfeed() {
         }
         
     }
-
+    
+    
+    //infinity scroll
+    const onscroll = function(){
+        var difference = document.documentElement.scrollHeight - window.innerHeight;
+        var scrollposition = document.documentElement.scrollTop;
+        
+        if (difference - scrollposition <= 2)
+        { 
+            
+            setinfinity(true);
+            
+            
+        }
+        else{
+            setinfinity(false);
+        }
+    }
+           
+        
+    
     
     
     
     return(
         <Autherntication>
-            <div className="container-fluid">
+            <div className="container-fluid" onPointerOver={onscroll} >
+                
                 <div className="row py-3 ">
                     <div className="col-md-7">
                         <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image} teditor={teditor}showteditor={showteditor} /></div>
@@ -218,9 +274,9 @@ function Newsfeed() {
         
                     </div>
                 </div>
-                <div className="row py-3 ">
+                <div className="row py-3 " >
                     <div className="col-md-6">
-                        <PostCards cards={cards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid} userPost={userPost}/>
+                        <PostCards  cards={cards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid} userPost={userPost}/>
                     </div>
                     <div className="col-md-3">
                         </div>

@@ -79,7 +79,7 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
         <>
         <div className="card-body"> {renderHTML(card.contents)}</div>
         <div className="card-footer"> 
-            {card.image.url && (
+            {card.image && card.image.url && (
                 <>
                     <div className="photos" onClick={displayed} style={
                         {backgroundImage:"url(" + card.image.url + ")",

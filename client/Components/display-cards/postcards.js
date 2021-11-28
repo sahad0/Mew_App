@@ -82,9 +82,9 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
 
 
     if(cards){
-        return cards.map((card)=>{
+         return cards.map((card,i)=>{
             return (
-            <div key={card._id} className="card mb-5">
+            <div key={i} className="card mb-5">
                 <div className="card-header"> 
                     <div className="row" style={{display:"flex",justifyContent:"space-between",}}>
                         <div className="col-sm-10">
