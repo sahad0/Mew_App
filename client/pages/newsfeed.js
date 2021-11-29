@@ -293,7 +293,7 @@ function Newsfeed() {
                 </div>
                 <div className="row py-3 " >
                     <div className="col-md-6">
-                        <PostCards  cards={cards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid} userPost={userPost}/>
+                        <PostCards  cards={cards} setCards={setCards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid} userPost={userPost}/>
                     </div>
                     <div className="col-md-3">
                         </div>
