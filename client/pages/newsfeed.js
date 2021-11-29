@@ -46,6 +46,8 @@ function Newsfeed() {
     const[getinfinity,setinfinity] = useState(false);
     //page no infinity scroll
     const[page,setPage] = useState(1);
+    //restrict page
+    const[restrict,setRestrict] = useState(true);
 
 
     
@@ -59,8 +61,11 @@ function Newsfeed() {
     
 
      useEffect(()=>{
-        //fetch posts on mount
-        infinityPost(); 
+         setTimeout(()=>{
+            infinityPost();
+            setPage(page+1);
+         },1000);
+        
         //friend Suggestion
         findSuggestions();           
      },[state && state.token]);
@@ -91,7 +96,10 @@ function Newsfeed() {
     //infinity scroll
     useEffect(()=>{
         if(getinfinity){
-            setPage(page+1);
+            if(restrict!==false){
+                setPage(page+1);
+            }
+            
             infinityPost();
             setinfinity(false);
         }
@@ -117,6 +125,7 @@ function Newsfeed() {
                return toast.error("Contents are required");
             }
             if(createpost){
+                setPage(1);
                 setTimeout(()=>{
                     router.reload(window.location.pathname);
                 },2000);
@@ -170,21 +179,28 @@ function Newsfeed() {
     }
     //infinite scroll call
     async function infinityPost(){
-        try{
-            const {data} = await axios.get(`/infinitypost/${page}`);     //refetch posts especialy for after delete and update !important
-            if(data){
-                let ax = [...cards];
-                for( let i=0;i<data.length;i++){
-                   ax.push(data[i]);
+        if(restrict!==false)
+        {    try{
+                
+                    const {data} = await axios.get(`/infinitypost/${page}`);     //refetch posts especialy for after delete and update !important
+
+                    if(data.length==0){
+                        setRestrict(false);
+                    }
+                
+                
+                if(data){
+                    setTimeout(()=>{
+
+                    },500);
+                    setCards([...cards,...data]); 
+                    
                 }
-                setCards(ax);
-               
+                
             }
-            
-        }
-        catch(err){
-            console.log(err);
-        }
+            catch(err){
+                console.log(err);
+            }}
     }
 
 
@@ -206,9 +222,10 @@ function Newsfeed() {
              const deleted = await axios.delete(`/deletethepost/${deletedid}`);
              setdeletedid("");
              if(deleted){
+                setPage(0);
                 setTimeout(()=>{
                     router.reload(window.location.pathname);
-                },2000)
+                },3000);
                 
             }
              toast.warning("Post Deleted");
