@@ -116,7 +116,7 @@ function PostCards({cards,setCards,deletehandleCancel,deletehandleOk,isDeleteMod
                         </div>
                     </div>
                 </div>
-                <Cardstyle card={card}   handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} 
+                <Cardstyle card={card} setCards={setCards} cards={cards} handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} 
                 displaycontents={displaycontents} setdisplaycontents={setdisplaycontents} like={like} unlike={unlike} state={state}comment={comment}showComment={showComment} 
                 commentid={commentid} setcommentid={setcommentid} userPost={userPost}/>        
                 
