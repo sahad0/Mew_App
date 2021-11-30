@@ -6,7 +6,7 @@ import PostCards from "../Components/display-cards/postcards";
 import CreatePost from "../Components/Forms/Createpostform";
 import { UserContext } from "../context";
 import Suggestions from "../Components/Suggestions/suggestion";
-
+import {useRouter} from "next/router";
 
 function Newsfeed() {
     //Context
@@ -26,8 +26,9 @@ function Newsfeed() {
 
 
     //posts array state
-    const [cards,setCards] = useState([]);
-
+    let [cards,setCards] = useState([]);
+    //ROUTER
+    const router = useRouter();
 
     //delete states
     const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);//delete okay or not modal
@@ -41,6 +42,13 @@ function Newsfeed() {
     //show and hide text editor
     const[teditor,showteditor] = useState(false);
 
+    //infinity scroll
+    const[getinfinity,setinfinity] = useState(false);
+    //page no infinity scroll
+    const[page,setPage] = useState(1);
+    //restrict page
+    const[restrict,setRestrict] = useState(true);
+
 
     
 
@@ -53,8 +61,11 @@ function Newsfeed() {
     
 
      useEffect(()=>{
-        //fetch posts on mount
-        userPost();  
+         setTimeout(()=>{
+            infinityPost();
+            setPage(page+1);
+         },1000);
+        
         //friend Suggestion
         findSuggestions();           
      },[state && state.token]);
@@ -82,6 +93,20 @@ function Newsfeed() {
         
     },[okdelete]);
 
+    //infinity scroll
+    useEffect(()=>{
+        if(getinfinity){
+            if(restrict!==false){
+                setPage(page+1);
+            }
+            
+            infinityPost();
+            setinfinity(false);
+        }
+        
+        
+    },[getinfinity]);
+
 
 
 
@@ -100,8 +125,9 @@ function Newsfeed() {
                return toast.error("Contents are required");
             }
             if(createpost){
+                setPage(1);
                 setTimeout(()=>{
-                    userPost();
+                    router.reload(window.location.pathname);
                 },2000);
                 
             }
@@ -143,13 +169,38 @@ function Newsfeed() {
     //refetching posts for certain constions like update and delete
     async function userPost(){
         try{
-            const {data} = await axios.get("/followerspost");     //refetch posts especialy for after delete and update !important
-            setCards(data);
+            // const {data} = await axios.get("/followerspost");     //refetch posts especialy for after delete and update !important
+            setCards(cards);
             
         }
         catch(err){
             console.log(err);
         }
+    }
+    //infinite scroll call
+    async function infinityPost(){
+        if(restrict!==false)
+        {    try{
+                
+                    const {data} = await axios.get(`/infinitypost/${page}`);     //refetch posts especialy for after delete and update !important
+
+                    if(data.length==0){
+                        setRestrict(false);
+                    }
+                
+                
+                if(data){
+                    setTimeout(()=>{
+
+                    },500);
+                    setCards([...cards,...data]); 
+                    
+                }
+                
+            }
+            catch(err){
+                console.log(err);
+            }}
     }
 
 
@@ -171,9 +222,10 @@ function Newsfeed() {
              const deleted = await axios.delete(`/deletethepost/${deletedid}`);
              setdeletedid("");
              if(deleted){
+                setPage(0);
                 setTimeout(()=>{
-                    userPost();
-                },2000)
+                    router.reload(window.location.pathname);
+                },3000);
                 
             }
              toast.warning("Post Deleted");
@@ -199,13 +251,34 @@ function Newsfeed() {
         }
         
     }
-
+    
+    
+    //infinity scroll
+    const onscroll = function(){
+        var difference = document.documentElement.scrollHeight - window.innerHeight;
+        var scrollposition = document.documentElement.scrollTop;
+        
+        if (difference - scrollposition <= 2)
+        { 
+            
+            setinfinity(true);
+            
+            
+        }
+        else{
+            setinfinity(false);
+        }
+    }
+           
+        
+    
     
     
     
     return(
         <Autherntication>
-            <div className="container-fluid">
+            <div className="container-fluid" onPointerOver={onscroll} >
+                
                 <div className="row py-3 ">
                     <div className="col-md-7">
                         <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image} teditor={teditor}showteditor={showteditor} /></div>
@@ -218,9 +291,9 @@ function Newsfeed() {
         
                     </div>
                 </div>
-                <div className="row py-3 ">
+                <div className="row py-3 " >
                     <div className="col-md-6">
-                        <PostCards cards={cards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid} userPost={userPost}/>
+                        <PostCards  cards={cards} setCards={setCards} deletehandleCancel={deletehandleCancel} deletehandleOk={deletehandleOk} isDeleteModalVisible={isDeleteModalVisible} setdeletedid={setdeletedid} userPost={userPost}/>
                     </div>
                     <div className="col-md-3">
                         </div>

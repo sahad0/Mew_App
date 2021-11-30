@@ -12,7 +12,7 @@ import CommentComponent from "../CommentComponent/CommentComponent";
 
 
 
-function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike,comment,showComment,commentid,setcommentid,userPost}) {
+function Cardstyle({state,card,setCards,cards,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike,comment,showComment,commentid,setcommentid,userPost}) {
     
     const [commentImage,setcommentImage] = useState("");
     const [grabComment,setGrabComment] = useState("");
@@ -59,10 +59,21 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
         try {
             const comment = grabComment;
             const addedComment = await axios.put("/addComment",{comment:comment,_cid:commentid});
+            let carray = [...cards];
+            
+            let updated = carray.filter((p)=>{
+                if(p._id==commentid){
+                    p.comments = addedComment.data.comments
+                }   
+            })
+            
             if(addedComment){
                 setGrabComment("");
                 showComment(false);
                 setCommentPosted(true);
+                setCards(updated);
+                userPost();
+                
             }
             
             
@@ -79,7 +90,7 @@ function Cardstyle({state,card,handleCancel,isModalVisible,setdisplayurl,display
         <>
         <div className="card-body"> {renderHTML(card.contents)}</div>
         <div className="card-footer"> 
-            {card.image.url && (
+            {card.image && card.image.url && (
                 <>
                     <div className="photos" onClick={displayed} style={
                         {backgroundImage:"url(" + card.image.url + ")",
