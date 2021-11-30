@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 //react-render-html , moment
 
 
-function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible,setdeletedid,userPost}) {
+function PostCards({cards,setCards,deletehandleCancel,deletehandleOk,isDeleteModalVisible,setdeletedid,userPost}) {
     //context
     const[cookiestate,setcookiestate] = useContext(UserContext)['cookies'];
 
@@ -54,9 +54,17 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
         try {
             const liked = await axios.put("/like",{_id:_id});
             if(liked){
+                
+                let updatelist = [...cards];
+                let updated = updatelist.filter((p)=>{
+                    if(p._id === _id ){
+                        p.likes.push(cookiestate);
+                    }
+                });
+                setCards(updated);
                 userPost();
-                let audio = new Audio("./music/facebook_pop.mp3");
-                audio.play();
+                // let audio = new Audio("./music/facebook_pop.mp3");
+                // audio.play();
             }
             
         } catch (err) {
@@ -68,9 +76,17 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
         try {
             const unliked = await axios.put("/unlike",{_id:_id});
             if(unliked){
+                let updatelist = [...cards];
+                let updated = updatelist.filter((p)=>{
+                    if(p._id === _id ){
+                        p.likes.pop(cookiestate);
+                    }
+                });
+                
+                setCards(updated);
                 userPost();
-                let audio = new Audio("./music/facebook_pop.mp3");
-                audio.play();
+                // let audio = new Audio("./music/facebook_pop.mp3");
+                // audio.play();
                 
             }
             
@@ -82,9 +98,9 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
 
 
     if(cards){
-        return cards.map((card)=>{
+         return cards.map((card,i)=>{
             return (
-            <div key={card._id} className="card mb-5">
+            <div key={i} className="card mb-5">
                 <div className="card-header"> 
                     <div className="row" style={{display:"flex",justifyContent:"space-between",}}>
                         <div className="col-sm-10">
@@ -100,7 +116,7 @@ function PostCards({cards,deletehandleCancel,deletehandleOk,isDeleteModalVisible
                         </div>
                     </div>
                 </div>
-                <Cardstyle card={card}   handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} 
+                <Cardstyle card={card} setCards={setCards} cards={cards} handleCancel={handleCancel}showModal={showModal}  isModalVisible={isModalVisible} setdisplayurl={setdisplayurl} displayurl={displayurl} 
                 displaycontents={displaycontents} setdisplaycontents={setdisplaycontents} like={like} unlike={unlike} state={state}comment={comment}showComment={showComment} 
                 commentid={commentid} setcommentid={setcommentid} userPost={userPost}/>        
                 

@@ -1,4 +1,4 @@
-import {Comment,Avatar,Tooltip} from "antd";
+import {Comment,Avatar} from "antd";
 import moment from "moment";
 
 function CommentComponent({card}) {

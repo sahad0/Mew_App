@@ -44,7 +44,7 @@ function Suggestions({people,setstate,setpeople,userPost}) {
             setstate(follow.data.add);
             var smiley = "💕";
             var smileyArray = smiley.split(" ");
-            console.log(smileyArray);
+            
             toast(`Following  ${(user.name)} ${smileyArray[Math.floor(Math.random() * 1)]}`);
             userPost();
             
