@@ -62,16 +62,10 @@ function Navbar(){
                             <Link href="/profile"><a className="nav-link" >Profile</a></Link>
                         </li>
                         <li className="nav-item">
-                            <Link href="/newsfeed"><a className="nav-link" >NewsFeed</a></Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link href="/following"><a className="nav-link" >Following</a></Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link href="/followers"><a className="nav-link" >Followers</a></Link>
-                        </li>
-                        <li className="nav-item">
                             <Link href="/dashboard"><a className="nav-link" >DashBoard</a></Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link href="/newsfeed"><a className="nav-link" >NewsFeed</a></Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link " onClick={logBack}>Log-Out</a>
