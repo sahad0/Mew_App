@@ -7,6 +7,8 @@ import CreatePost from "../Components/Forms/Createpostform";
 import { UserContext } from "../context";
 import Suggestions from "../Components/Suggestions/suggestion";
 import {useRouter} from "next/router";
+import SearchForm from "../Components/Forms/SearchForm";
+
 
 function Newsfeed() {
     //Context
@@ -278,7 +280,7 @@ function Newsfeed() {
     return(
         <Autherntication>
             <div className="container-fluid" onPointerOver={onscroll} >
-                
+                 <SearchForm />
                 <div className="row py-3 ">
                     <div className="col-md-7">
                         <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image} teditor={teditor}showteditor={showteditor} /></div>

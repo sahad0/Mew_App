@@ -3,7 +3,7 @@ const LoginSchema = require("../models/loginModel");
 
 const jwt = require("jsonwebtoken");
 const {nanoid} = require("nanoid");
-const { findByIdAndUpdate } = require("../models/loginModel");
+
 const cloudinary = require("cloudinary");
 
 const register = async (req, res) => {
