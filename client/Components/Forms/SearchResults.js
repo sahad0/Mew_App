@@ -1,7 +1,20 @@
 import { List, Avatar ,Button} from 'antd';
+import { useEffect, useState } from 'react';
+import {useRouter} from "next/router";
 
 
 function SearchResults({showSearch,results,haveImage,checkStatus}) {
+
+
+    const router = useRouter();
+
+    
+
+    
+
+
+
+
 
     if(showSearch){
 
@@ -17,7 +30,7 @@ function SearchResults({showSearch,results,haveImage,checkStatus}) {
                             <List.Item.Meta
                             avatar={<Avatar shape="square" size="large" src={haveImage(user)} />}
                             title={<div className="d-flex justify-content-between py-2">
-                                    <div style={{fontStyle:"italic"}}>{user.name}</div>
+                                    <a onClick={()=>{router.push(`profile/${user._id}`)}} style={{fontStyle:"italic"}}>{user.name}</a>
                                     <Button type="primary" style={{cursor:"pointer",backgroundColor:"#B19CD9",border:"#B19CD9"}}>{checkStatus(user)}</Button>
                                 </div>
                                 }

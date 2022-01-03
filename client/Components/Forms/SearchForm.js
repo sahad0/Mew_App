@@ -25,6 +25,7 @@ function SearchForm() {
 
     async function fetchSearch(){
         try {
+            
             const {data} = await axios.post("/fetchSearch",{searchName:searchName});
             if(data){
                 setResults(data);
