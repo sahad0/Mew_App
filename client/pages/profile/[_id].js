@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import {useRouter} from "next/router";
 import axios from "axios";
-import Autherntication from "../../Components/Authenication/authfile";
 import { UserContext } from "../../context";
 import {UserOutlined,UsergroupAddOutlined,AliwangwangOutlined,HomeOutlined} from "@ant-design/icons";
 import Link from "next/link";
 import { toast } from "react-toastify";
+
 
 function ProfileSearch() {
 
@@ -13,16 +13,34 @@ function ProfileSearch() {
     const[cookiestate,setcookiestate] = useContext(UserContext)['cookies'];
     const[profiles,setProfiles] = useState("");
     const[img,setImg] = useState("");
+    const[fl,setFl] = useState("");
 
     const router = useRouter();
 
     useEffect(()=>{
+        if(router.query._id !== undefined){
+            window.localStorage.setItem("profile",router.query._id);
+        }
         findProfile();
+        checkfollow();
     },[]);
 
     useEffect(()=>{
         imgCheck();
     },[profiles]);
+
+    function checkfollow(){
+        if(state){
+            if(state.following.includes(window.localStorage.getItem("profile"))){
+                setFl("Unfollow");
+            }
+            else{
+                setFl("Follow");
+            }
+        }
+        
+    }
+    
 
     function imgCheck(){
         if(profiles){
@@ -30,19 +48,19 @@ function ProfileSearch() {
                 setImg(profiles.image.url);
             }
             else{
-                setImg("./images/avatar.jpg");
+                setImg("../images/avatar.jpg");
             }
             
         }
         else{
-            setImg("./images/avatar.jpg");
+            setImg("../images/avatar.jpg");
         }
     }
 
 
     async function findProfile(){
         try {
-            const prof = await axios.get(`/findProf/${router.query._id}`);
+            const prof = await axios.get(`/findProf/${window.localStorage.getItem("profile")}`);
             if(prof){
                 setProfiles(prof.data);
             }
@@ -61,6 +79,55 @@ function ProfileSearch() {
 
 
 
+    async function handleUnFollow(user){
+        try {
+            const unfollow = await axios.put("/unfollowhandle",{_id:user});
+            
+            window.localStorage.setItem("auth",JSON.stringify(unfollow.data.rmvefollow));
+            //rerender_list
+            //context
+            setstate(unfollow.data.rmvefollow);
+            
+            toast(`Unfollowed💔 `);
+            
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    async function handleFollow(user){
+        try {
+            const follow = await axios.put("/followhandle",{_id:user});
+            //localstorage
+            
+            window.localStorage.setItem("auth",JSON.stringify(follow.data.add));
+            //rerender_list
+
+            //context
+            setstate(follow.data.add);
+            
+            
+            toast("Following 💕");
+            
+            
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
+
+    function handle(){
+        if(fl=="Unfollow"){
+                setFl("Follow");
+                handleUnFollow(router.query._id)
+        }
+        else if(fl=="Follow"){
+            setFl("Unfollow");
+            handleFollow(router.query._id);
+        }
+    }
+
+
     return (
         state &&
         (<div className="container" >
@@ -71,7 +138,7 @@ function ProfileSearch() {
     
                         <label className="card-header cardbdy"style={{
                             backgroundPosition:"center center",
-                            backgroundImage:"url(" + img  + ")",
+                            backgroundImage:"url("+ img +")",
                             backgroundSize:"cover",
                             backgroundRepeat:"no-repeat",
                             height:"400px",}}>   
@@ -93,11 +160,11 @@ function ProfileSearch() {
                         <div className="card-body" >
                             <div className="row">
                                 <div className="col-md-6">
-                                    {profiles.followers ? profiles.followers.includes(cookiestate) ? 
-                                    (<Link href="/following"><div className="div-container-1 "  style={{height:"100px",borderRadius:"3px"}}><UserOutlined style={{fontSize:"25px"}} />   <div>Unfollow</div> </div></Link>)
-                                    : 
-                                    (<Link href="/following"><div className="div-container-1 "  style={{height:"100px",borderRadius:"3px"}}><UserOutlined style={{fontSize:"25px"}} />   <div>Follow</div> </div></Link>)
-                                    : <></>}
+                                    
+                                    <div className="div-container-1 " onClick={handle}  style={{height:"100px",borderRadius:"3px"}}><UserOutlined style={{fontSize:"25px"}} />  
+                                     <div> {fl}</div> </div>
+                                    
+                                    
                                     <Link href="/followers"><div className="div-container-1 my-3" style={{height:"100px",borderRadius:"3px"}}><UsergroupAddOutlined style={{fontSize:"25px"}}/><div>Posts</div></div></Link>
                                 </div>
                                

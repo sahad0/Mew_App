@@ -27,8 +27,16 @@ function SearchForm() {
         try {
             
             const {data} = await axios.post("/fetchSearch",{searchName:searchName});
-            if(data){
-                setResults(data);
+            const fetchh = [...data];
+             
+             const fetched =fetchh.filter((p)=>{
+                if(p._id!==cookiestate){
+                    return p;
+                }
+            })
+
+            if(fetched){
+                setResults(fetched);
             }
             
             

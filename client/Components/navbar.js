@@ -14,6 +14,7 @@ function Navbar(){
 
     useEffect(()=>{
         state && window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal
+        window.localStorage.getItem("profile") && window.localStorage.removeItem("profile");
     },[]);
     useEffect(()=>{
         process.browser && setCurrent(window.location.pathname);

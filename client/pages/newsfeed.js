@@ -74,7 +74,8 @@ function Newsfeed() {
 
     //on return from update page removes update key from local storage (toggling post keys)
     useEffect(()=>{
-        window.localStorage.getItem("update") && window.localStorage.removeItem("update"); 
+        window.localStorage.getItem("update") && window.localStorage.removeItem("update");
+        window.localStorage.getItem("profile") && window.localStorage.removeItem("profile");
     },[]);
 
 
@@ -283,8 +284,9 @@ function Newsfeed() {
                  <SearchForm />
                 <div className="row py-3 ">
                     <div className="col-md-7">
-                        <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image} teditor={teditor}showteditor={showteditor} /></div>
+                        
                         <div><img src="./images/mew_news.png" draggable="false" className="unicorn"></img></div>
+                        <div><CreatePost content={content} setcontent={setcontent} contentextract={contentextract} handleImage={handleImage} loading={loading} image={image} teditor={teditor}showteditor={showteditor} /></div>
                     </div>
                     <div className="col-md-2"> </div>
                     <div className="col-md-3 wow" >
