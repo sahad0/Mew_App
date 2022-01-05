@@ -76,4 +76,4 @@ function Following() {
     )
 };
 
-export {Following,handleUnFollow} ;
+export default Following ;
