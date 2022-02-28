@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import CommentComponent from "../CommentComponent/CommentComponent";
+import { useRouter } from "next/router";
 
 
 
@@ -14,6 +15,11 @@ import CommentComponent from "../CommentComponent/CommentComponent";
 
 function Cardstyle({state,card,setCards,cards,handleCancel,isModalVisible,setdisplayurl,displayurl,showModal,setdisplaycontents,displaycontents,like,unlike,comment,showComment,commentid,setcommentid,userPost}) {
     
+    const router = useRouter();
+
+
+
+
     const [commentImage,setcommentImage] = useState("");
     const [grabComment,setGrabComment] = useState("");
     const [commentPosted,setCommentPosted] = useState(false);
@@ -119,7 +125,7 @@ function Cardstyle({state,card,setCards,cards,handleCancel,isModalVisible,setdis
                     
                     }
                 </span> 
-                <span><MessageTwoTone onClick={()=>{addcomments(card._id)}} className="mt-3" style={{fontSize:"22px",marginLeft:"3%"}}/></span><span style={{marginLeft:"2%",}}>{card.comments.length }</span> <em style={{marginLeft:"1%"}}>Comments</em>
+                <span><MessageTwoTone onClick={()=>{addcomments(card._id)}} className="mt-3" style={{fontSize:"22px",marginLeft:"3%"}}/></span><span style={{marginLeft:"2%",}}>{card.comments.length }</span> <em style={{marginLeft:"1%"}} ><a onClick={()=>{router.push(`comment/${card._id}`)}}>Comments</a></em>
             </div>  
             {comment  && (commentid === card._id) && (
                 <>

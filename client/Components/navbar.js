@@ -29,6 +29,7 @@ function Navbar(){
             await axios.get(`/logout`);
             window.localStorage.removeItem('auth');
             window.localStorage.removeItem('token');
+            window.localStorage.getItem("comment") && window.localStorage.removeItem("comment");
             
             setstate(null);
             setcookiestate(null);

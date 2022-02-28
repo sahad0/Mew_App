@@ -7,7 +7,7 @@ const canupdate = require("../middleware/canupdate");
 const { addFollow, addFollower, fetchFollowersPost, fetchFollowing, removeFollower, removeFollow, fetchFollowers, fetchInfinityPost } = require("../controllers/FollowUnfollowControllers");
 const { liked, unliked } = require("../controllers/likeandUnlikeControllers");
 const Suggestions = require("../controllers/suggestionControllers");
-const { commentController, removeCommentController } = require("../controllers/commentController");
+const { commentController, removeCommentController, commentPosts } = require("../controllers/commentController");
 const { SearchUsers } = require("../controllers/SearchControllers");
 const { findProfile } = require("../controllers/ProfileControllers");
 
@@ -60,7 +60,7 @@ router.put("/unlike",auth,unliked);
 //Comment Router
 router.put("/addComment",auth,commentController);
 router.put("/addComment",auth,removeCommentController);
-
+router.post("/commentPosts",auth,commentPosts);
 
 
 
