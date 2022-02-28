@@ -37,7 +37,7 @@ const loginSchema = mongoose.Schema({
     image : {url:String , public_id:String},
     following : [{type : ObjectId ,ref:"User"}],
     followers : [{type : ObjectId ,ref:"User"}],
-    verified: {type:Boolean},
+    verified: {type:Boolean,default:false,},
 },{
     timestamps :true,
 });

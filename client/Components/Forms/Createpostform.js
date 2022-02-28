@@ -50,7 +50,7 @@ function CreatePost({content,setcontent,contentextract,handleImage,loading,image
                     </label>
                 </div>
             </div>):
-            <div><Button onClick={()=>showteditor(true)} >Create &nbsp;	<SendOutlined style={{paddingBottom:"5px",}}/></Button></div>}
+            <div><Button  onClick={()=>showteditor(true)} >Create &nbsp;	<SendOutlined style={{paddingBottom:"5px",}}/></Button></div>}
             
              
             

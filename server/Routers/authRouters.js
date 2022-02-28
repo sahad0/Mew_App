@@ -8,6 +8,8 @@ const { addFollow, addFollower, fetchFollowersPost, fetchFollowing, removeFollow
 const { liked, unliked } = require("../controllers/likeandUnlikeControllers");
 const Suggestions = require("../controllers/suggestionControllers");
 const { commentController, removeCommentController } = require("../controllers/commentController");
+const { SearchUsers } = require("../controllers/SearchControllers");
+const { findProfile } = require("../controllers/ProfileControllers");
 
 
 
@@ -60,5 +62,18 @@ router.put("/addComment",auth,commentController);
 router.put("/addComment",auth,removeCommentController);
 
 
+
+
+
+
+
+//search Router
+router.post("/fetchSearch",auth,SearchUsers);
+
+
+
+//findProfile Rouets
+
+router.get("/findProf/:_id",auth,findProfile);
 
 module.exports = router;
