@@ -55,14 +55,7 @@ function SearchForm() {
         }
         
     }
-    function checkStatus(user){
-        if(user.followers.includes(cookiestate)){
-            return "Unfollow";
-        }
-        else{
-            return "Follow";
-        }
-    }
+   
 
     return(
         
@@ -71,7 +64,7 @@ function SearchForm() {
                 <div className="col-md-4" >   <Input style={{width:"100%",}} onChange={(e)=>{setSearchName(e.target.value)}} /></div> 
                 <div className="col-md-1"> <Button type="primary" onClick={()=>{setShowSearch(true)}} shape="circle" size="middle" icon={<SearchOutlined />} /> </div>
             </div>
-            <SearchResults showSearch={showSearch} haveImage={haveImage} results={results} checkStatus={checkStatus}/>
+            <SearchResults showSearch={showSearch} haveImage={haveImage} results={results}/>
         </>
 
 

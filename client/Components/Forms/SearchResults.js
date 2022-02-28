@@ -1,13 +1,13 @@
 import { List, Avatar ,Button} from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import {useRouter} from "next/router";
-
+import {handleFollow,handleUnFollow} from "../../pages/profile/[_id]";
 
 import { UserContext } from '../../context';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function SearchResults({showSearch,results,haveImage,checkStatus}) {
+function SearchResults({showSearch,results,haveImage}) {
     const[state,setstate] = useContext(UserContext)['state1'];
     const [cookiestate,setcookiestate] = useContext(UserContext)['cookies'];
     const router = useRouter();
