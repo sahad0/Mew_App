@@ -25,6 +25,8 @@ Clean DashBoards!
 ![Screenshot_5](https://user-images.githubusercontent.com/88948601/156060567-e2f87884-b8af-48b5-a98a-29c2995b122b.png)
 
 
+Comment Features!
+![Screenshot_7](https://user-images.githubusercontent.com/88948601/156061691-e908f9db-396d-47fc-a784-1208ba602349.png)
 
 
 
