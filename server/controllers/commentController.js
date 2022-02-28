@@ -28,4 +28,18 @@ const removeCommentController = async(req,res)=>{
 }
 
 
-module.exports = {commentController,removeCommentController};
+const commentPosts = async(req,res)=>{
+
+    try {
+        const {cd} = req.body;
+        const commentP = await PostSchema.findById(cd).populate("comments.postedBy", "name image _id");
+        
+        res.status(200).send(commentP);
+
+    } catch (err) {
+        res.status(500).json({err_msg:"Internal Server Error"});
+    }
+}
+
+
+module.exports = {commentController,removeCommentController,commentPosts};

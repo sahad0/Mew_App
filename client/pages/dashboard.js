@@ -51,6 +51,7 @@ function Dashboard() {
     useEffect(()=>{
         window.localStorage.getItem("update") && window.localStorage.removeItem("update"); //for update removal
         window.localStorage.getItem("profile") && window.localStorage.removeItem("profile");
+        window.localStorage.getItem("comment") && window.localStorage.removeItem("comment");
     },[]);
 
     

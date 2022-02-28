@@ -76,6 +76,7 @@ function Newsfeed() {
     useEffect(()=>{
         window.localStorage.getItem("update") && window.localStorage.removeItem("update");
         window.localStorage.getItem("profile") && window.localStorage.removeItem("profile");
+        window.localStorage.getItem("comment") && window.localStorage.removeItem("comment");
     },[]);
 
 
