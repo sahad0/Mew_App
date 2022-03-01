@@ -78,7 +78,7 @@ function Cardstyle({state,card,setCards,cards,handleCancel,isModalVisible,setdis
                 showComment(false);
                 setCommentPosted(true);
                 setCards(updated);
-                userPost();
+                
                 
             }
             
