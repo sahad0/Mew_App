@@ -68,7 +68,7 @@ const fetchFollowersPost = async(req,res)=>{
         let following = me.following;
         following.push(req._id);
 
-        const userposts = await PostSchema.find({postedBy : {$in: following}}).populate("comments.postedBy","name _id image").populate("postedBy","name _id image").sort({createdAt : -1}).limit(10);
+        const userposts = await PostSchema.find({postedBy : {$in: following}}).populate("comments.postedBy","name _id image").populate("postedBy","name _id image").sort({createdAt : -1}).limit(3);
         res.json(userposts);
     } catch (err) {
         res.status(500).json({err_msg:"Internal Server Errorrr"});
@@ -81,7 +81,7 @@ const fetchInfinityPost = async(req,res)=>{
         let following = me.following;
         following.push(req._id);
         const pages  = req.params.page||0;
-        const userposts = await PostSchema.find({postedBy : {$in: following}}).skip((pages-1)*3).populate("comments.postedBy","name _id image").populate("postedBy","name _id image").sort({createdAt : -1}).limit(10);
+        const userposts = await PostSchema.find({postedBy : {$in: following}}).skip((pages-1)*3).populate("comments.postedBy","name _id image").populate("postedBy","name _id image").sort({createdAt : -1}).limit(3);
         res.json(userposts);
     } catch (err) {
         res.status(500).json({err_msg:"Internal Server Errorrr"});
