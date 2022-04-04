@@ -31,7 +31,7 @@ app.use(cookieparser());//cookie-paser
 
 //Connections to port and db
 const PORT = process.env.PORT || 5000;
-app.listen(PORT,()=>console.log("Connected at 5000"));
+app.listen(PORT,()=>console.log(PORT));
 
 mongoose.connect(process.env.DATABASE_STRING,{
     useNewUrlParser:true,
