@@ -19,7 +19,7 @@ cloudinary.config({
 
 const app = express();
 app.use(cors({
-    origin : ["http://localhost:3000","https://624c6d3a84a6e46d8cda7e71--tiny-pegasus-75fb85.netlify.app"],
+    origin : ["http://localhost:3000","https://624c8428318db4156650fbc8--fantastic-sunburst-e66bae.netlify.app"],
     credentials : true,
 })   
 );
