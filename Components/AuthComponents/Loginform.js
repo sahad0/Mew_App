@@ -15,7 +15,7 @@ function Loginform({loginfunction,setLoginemail,setLoginpass,loginemail,loginpas
                 <div className="col-md-6 ">
                     <form onSubmit={loginfunction}>
                         <Input size="large" placeholder="Email" type="text" className="mt-2 col-sm-12"      onChange={(e)=>{setLoginemail("sahadwg@gmail.com")}}    value={loginemail}/>
-                        <Input size="large" placeholder="Password" type="text" className="mt-2 col-sm-12"  type="password"    onChange={(e)=>{setLoginpass("asdfas")}}   value={loginpass}/>
+                        <Input size="large" placeholder="Password"  className="mt-2 col-sm-12"  type="password"    onChange={(e)=>{setLoginpass("asdfas")}}   value={loginpass}/>
                 
                         <br/><Button variant="contained" color="primary" type="submit"  className="mt-4"> Login </Button>
                     </form>
