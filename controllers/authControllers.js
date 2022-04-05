@@ -76,7 +76,7 @@ const register = async (req, res) => {
     };
     const token = jwt.sign(tokendetails, process.env.SECRET_STRING,{expiresIn:"1d"});
 
-    res.cookie("token", token, { httpOnly: true }).send();
+    res.cookie("token", token, { httpOnly: true , sameSite : "none" , secure : true }).send();
   } catch (err) {
     res.status(500).json({ err_msg: "Internal server Error" });
   }
@@ -116,7 +116,7 @@ const login = async (req, res) => {                                             
     if (passverify) {
       const token = jwt.sign({ _id: userExist._id }, process.env.SECRET_STRING,{expiresIn:"1d"});
 
-      res.cookie("token", token, { httpOnly: true }).send();
+      res.cookie("token", token, { httpOnly: true ,sameSite : "none" , secure : true }).send();
     }
   } catch (err) {
     return res.status(500).json({ err_msg: "Internal server Error" });
@@ -156,7 +156,7 @@ const logout = async (req, res) => {                                            
   try {
     const token = req.cookies.token;
     if (token) {
-      res.cookie("token", "", { httpOnly: true,expires: new Date(0),}).send();
+      res.cookie("token", "", { httpOnly: true,sameSite : "none" , secure : true,expires: new Date(0),}).send();
     }
   } 
   catch (err) {
